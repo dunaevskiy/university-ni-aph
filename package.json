@@ -1,0 +1,13 @@
+{
+  "name": "ni-aph-semestral-work",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Semester work",
+  "repository": "git@gitlab.fit.cvut.cz:dunaeser/ni-aph.git",
+  "license": "UNLICENSED",
+  "author": "Sergey Dunaevskiy <sergey@dunaevskiy.eu>",
+  "main": "app.js",
+  "dependencies": {
+    "pixi.js": "^5.3.3"
+  }
+}
