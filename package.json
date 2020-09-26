@@ -8,6 +8,14 @@
   "author": "Sergey Dunaevskiy <sergey@dunaevskiy.eu>",
   "main": "app.js",
   "dependencies": {
-    "pixi.js": "^5.3.3"
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "pixi.js": "^5.3.3",
+    "ts-loader": "^8.0.4",
+    "typescript": "^4.0.3",
+    "webpack": "^4.44.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.12"
   }
 }
