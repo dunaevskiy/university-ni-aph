@@ -26,11 +26,20 @@ module.exports = {
 				test: /\.tsx?$/,
 				loader: 'ts-loader',
 			},
+			{
+				test: /\.(png|jpe?g|gif)$/i,
+				use: [
+					{
+						loader: 'file-loader',
+					},
+				],
+			},
 		],
 	},
 
 	devServer: {
-		contentBase: './dist',
+		contentBase: dirs.dist,
+		port: 9000,
 	},
 
 	plugins: [
