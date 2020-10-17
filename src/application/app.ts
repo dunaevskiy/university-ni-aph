@@ -31,6 +31,9 @@ const loadResource = list =>
 })();
 
 class PixiBoot extends PIXI.Application {
+	private contMaze: PIXI.Container;
+	private contItems: PIXI.Container;
+
 	private readonly doctor: PIXI.Sprite;
 	private readonly keys: object;
 
@@ -47,8 +50,8 @@ class PixiBoot extends PIXI.Application {
 		// stage is a root element of the scene graph
 		// this.stage.addChild(this.exampleObject);
 
-		const container = new PIXI.Container();
-		const containerTop = new PIXI.Container();
+		this.contMaze = new PIXI.Container();
+		this.contItems = new PIXI.Container();
 
 		for (let r = 0; r < mazes.maps.alpha.length; r++) {
 			for (let c = 0; c < mazes.maps.alpha[0].length; c++) {
@@ -64,7 +67,7 @@ class PixiBoot extends PIXI.Application {
 					rectangle.x = c * 24;
 					rectangle.y = r * 24;
 					rectangle.zIndex = 2;
-					container.addChild(rectangle);
+					this.contMaze.addChild(rectangle);
 				} else {
 					let floor =
 						r > 1 && mazes.maps.alpha[r - 1][c] == 1
@@ -80,7 +83,7 @@ class PixiBoot extends PIXI.Application {
 					rectangle.x = c * 24;
 					rectangle.y = r * 24;
 					rectangle.zIndex = 2;
-					container.addChild(rectangle);
+					this.contMaze.addChild(rectangle);
 				}
 			}
 		}
@@ -91,7 +94,7 @@ class PixiBoot extends PIXI.Application {
 		this.doctor.x = 13 * 24;
 		this.doctor.y = 15 * 24;
 		this.doctor.zIndex = 3;
-		containerTop.addChild(this.doctor);
+		this.contItems.addChild(this.doctor);
 
 		const sampleSprite = new PIXI.Sprite(loader.resources.sample01.texture);
 		sampleSprite.width = 18;
@@ -99,7 +102,7 @@ class PixiBoot extends PIXI.Application {
 		sampleSprite.x = 15 * 24;
 		sampleSprite.y = 15 * 24;
 		sampleSprite.zIndex = 3;
-		containerTop.addChild(sampleSprite);
+		this.contItems.addChild(sampleSprite);
 
 		const sampleSprite2 = new PIXI.Sprite(loader.resources.sample02.texture);
 		sampleSprite2.width = 18;
@@ -107,10 +110,10 @@ class PixiBoot extends PIXI.Application {
 		sampleSprite2.x = 16 * 24;
 		sampleSprite2.y = 15 * 24;
 		sampleSprite2.zIndex = 3;
-		containerTop.addChild(sampleSprite2);
+		this.contItems.addChild(sampleSprite2);
 
-		this.stage.addChild(container);
-		this.stage.addChild(containerTop);
+		this.stage.addChild(this.contMaze);
+		this.stage.addChild(this.contItems);
 
 		// initialize game loop
 		this.ticker.add(deltaTime => this.update(deltaTime));
@@ -147,13 +150,28 @@ class PixiBoot extends PIXI.Application {
 
 	// game loop, invoked 60times per second
 	update = (deltaTime: number) => {
-		if (this.keys['65'] && this.hasCollisionWithMaze(this.doctor, -2, 0))
+		if (this.keys['65'] && this.hasCollisionWithMaze(this.doctor, -2, 0)) {
+			this.contMaze.position.x -= -2;
+			this.contItems.position.x -= -2;
 			this.doctor.position.x -= 2;
-		if (this.keys['68'] && this.hasCollisionWithMaze(this.doctor, 2, 0))
+		}
+
+		if (this.keys['68'] && this.hasCollisionWithMaze(this.doctor, 2, 0)) {
+			this.contMaze.position.x += -2;
+			this.contItems.position.x += -2;
 			this.doctor.position.x += 2;
-		if (this.keys['87'] && this.hasCollisionWithMaze(this.doctor, 0, -2))
+		}
+
+		if (this.keys['87'] && this.hasCollisionWithMaze(this.doctor, 0, -2)) {
+			this.contMaze.position.y -= -2;
+			this.contItems.position.y -= -2;
 			this.doctor.position.y -= 2;
-		if (this.keys['83'] && this.hasCollisionWithMaze(this.doctor, 0, 2))
+		}
+
+		if (this.keys['83'] && this.hasCollisionWithMaze(this.doctor, 0, 2)) {
+			this.contMaze.position.y += -2;
+			this.contItems.position.y += -2;
 			this.doctor.position.y += 2;
+		}
 	};
 }
