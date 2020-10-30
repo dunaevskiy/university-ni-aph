@@ -1,0 +1,10 @@
+{
+  "name": "@libs/pixi-ecs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "pixi-ecs",
+  "main": "./index.ts",
+  "peerDependencies": {
+    "pixi.js": "^5.3.3"
+  }
+}
