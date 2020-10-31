@@ -1,4 +1,8 @@
+import * as PIXI from 'pixi.js';
+
 import mazes from '../maze.json5';
+
+PIXI.settings.ROUND_PIXELS = true;
 
 export const VIEWPORT = {
 	size: {
@@ -9,6 +13,8 @@ export const VIEWPORT = {
 
 export const ACTION = {
 	MOVEMENT: 'MOVEMENT',
+	MOVEMENT_DIRECT: 'MOVEMENT_DIRECT',
+	MOVEMENT_REVERSE: 'MOVEMENT_REVERSE',
 };
 
 export const mazeMatrix = mazes.mapsHexa.alpha;

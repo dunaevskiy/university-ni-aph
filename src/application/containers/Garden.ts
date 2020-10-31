@@ -4,6 +4,7 @@ import * as ECS from '@libs/pixi-ecs';
 import { containerBigHeight, containerBigWidth, VIEWPORT } from '../constants';
 import { MovingReverseComponent } from '../components';
 import { loader } from '../loader';
+import { MazeContainer } from './Maze';
 
 export class GardenContainer extends ECS.Container {
 	constructor() {
@@ -33,5 +34,11 @@ export class GardenContainer extends ECS.Container {
 				}
 			}
 		}
+	}
+
+	init() {
+		const containerMaze = new MazeContainer();
+		this.addChild(containerMaze);
+		containerMaze.init();
 	}
 }

@@ -11,6 +11,7 @@ import {
 	mazeWidthBlocks,
 } from '../constants';
 import { loader } from '../loader';
+import { Doctor } from './Doctor';
 
 export class MazeContainer extends ECS.Container {
 	constructor() {
@@ -47,5 +48,10 @@ export class MazeContainer extends ECS.Container {
 				}
 			}
 		}
+	}
+
+	init() {
+		const doctor = new Doctor();
+		this.addChild(doctor);
 	}
 }

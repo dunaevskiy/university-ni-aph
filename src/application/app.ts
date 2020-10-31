@@ -1,10 +1,8 @@
-import * as PIXI from 'pixi.js';
 import * as ECS from '@libs/pixi-ecs';
 
 import { MovementBroker } from './brokers';
-
 import { VIEWPORT } from './constants';
-import { Doctor, GardenContainer, MazeContainer } from './containers';
+import { GardenContainer } from './containers';
 import { loadResources } from './loader';
 import {
 	floor01,
@@ -19,8 +17,6 @@ import {
 	bush01,
 } from '../assets';
 
-PIXI.settings.ROUND_PIXELS = true;
-
 class App {
 	engine: ECS.Engine;
 
@@ -33,19 +29,14 @@ class App {
 			height: VIEWPORT.size.height,
 			antialias: false,
 			resolution: 1,
-			// resolution: 2,
 		});
-
-		const containerGarden = new GardenContainer();
-		const containerMaze = new MazeContainer();
-		const doctor = new Doctor();
-
-		this.engine.scene.stage.addChild(containerGarden);
-		containerGarden.addChild(containerMaze);
-		containerMaze.addChild(doctor);
 
 		this.engine.scene.addGlobalComponent(new ECS.KeyInputComponent());
 		this.engine.scene.addGlobalComponent(new MovementBroker());
+
+		const containerGarden = new GardenContainer();
+		this.engine.scene.stage.addChild(containerGarden);
+		containerGarden.init();
 	}
 }
 

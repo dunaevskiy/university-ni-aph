@@ -8,6 +8,9 @@ export class MovementBroker extends ECS.Component {
 
 	onMessage(msg: ECS.Message): any {
 		if (msg.action === ACTION.MOVEMENT) {
+			const [shiftX, shiftY] = msg.data;
+			this.sendMessage(ACTION.MOVEMENT_DIRECT, [shiftX, shiftY]);
+			this.sendMessage(ACTION.MOVEMENT_REVERSE, [-shiftX, -shiftY]);
 		}
 	}
 }

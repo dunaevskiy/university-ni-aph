@@ -1,4 +1,5 @@
 import * as ECS from '@libs/pixi-ecs';
+import { ACTION } from '../constants';
 
 export class MovingComponent extends ECS.Component {
 	state = [0, 0];
@@ -8,11 +9,11 @@ export class MovingComponent extends ECS.Component {
 	}
 
 	onInit() {
-		this.subscribe('MOVE_IT');
+		this.subscribe(ACTION.MOVEMENT_DIRECT);
 	}
 
 	onMessage(msg: ECS.Message): any {
-		if (msg.action === 'MOVE_IT') {
+		if (msg.action === ACTION.MOVEMENT_DIRECT) {
 			const [x, y] = this.state;
 			const [xS, yS] = msg.data;
 			this._setState([x + xS, y + yS]);
