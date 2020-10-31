@@ -1,0 +1,21 @@
+import floor01Img from '../assets/floor01.png';
+import floor02Img from '../assets/floor02.png';
+import floor03Img from '../assets/floor03.png';
+import wall01Img from '../assets/wall01.png';
+import wall02Img from '../assets/wall02.png';
+import sample01Img from '../assets/sample01.png';
+import sample02Img from '../assets/sample02.png';
+import doctor01Img from '../assets/doctor01.png';
+import grass01Img from '../assets/grass01.png';
+import bush01Img from '../assets/bush01.png';
+
+export const floor01 = floor01Img;
+export const floor02 = floor02Img;
+export const floor03 = floor03Img;
+export const wall01 = wall01Img;
+export const wall02 = wall02Img;
+export const sample01 = sample01Img;
+export const sample02 = sample02Img;
+export const doctor01 = doctor01Img;
+export const grass01 = grass01Img;
+export const bush01 = bush01Img;
