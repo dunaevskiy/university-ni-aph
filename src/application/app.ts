@@ -2,7 +2,7 @@ import * as ECS from '@libs/pixi-ecs';
 
 import { MovementBroker } from './brokers';
 import { VIEWPORT } from './constants';
-import { GardenContainer } from './containers';
+import { Doctor, GardenContainer } from './containers';
 import { loadResources } from './loader';
 import {
 	floor01,
@@ -15,6 +15,8 @@ import {
 	doctor01,
 	grass01,
 	bush01,
+	teleport01,
+	teleport02,
 } from '../assets';
 
 class App {
@@ -37,6 +39,9 @@ class App {
 		const containerGarden = new GardenContainer();
 		this.engine.scene.stage.addChild(containerGarden);
 		containerGarden.init();
+
+		const doctor = new Doctor();
+		this.engine.scene.stage.addChild(doctor);
 	}
 }
 
@@ -52,6 +57,8 @@ class App {
 		{ name: 'doctor01', url: doctor01 },
 		{ name: 'grass01', url: grass01 },
 		{ name: 'bush01', url: bush01 },
+		{ name: 'teleport01', url: teleport01 },
+		{ name: 'teleport02', url: teleport02 },
 	]);
 
 	new App();

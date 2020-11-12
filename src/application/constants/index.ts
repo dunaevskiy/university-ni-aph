@@ -17,10 +17,10 @@ export const ACTION = {
 	MOVEMENT_REVERSE: 'MOVEMENT_REVERSE',
 };
 
-export const mazeMatrix = mazes.mapsHexa.alpha;
-export const mazeWidthBlocks = mazeMatrix[0].length;
-export const mazeHeightBlocks = mazeMatrix.length;
-export const mazeBlockSize = 24;
+export const mazeMatrix: number[][] = mazes.mapsHexa.alpha;
+export const mazeWidthBlocks: number = mazeMatrix[0].length;
+export const mazeHeightBlocks: number = mazeMatrix.length;
+export const mazeBlockSize: number = 24;
 
 export const containerBigWidth = VIEWPORT.size.width * 2 + mazeWidthBlocks * mazeBlockSize;
 export const containerBigWidthShift = (containerBigWidth / 2) * -1;

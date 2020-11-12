@@ -8,6 +8,8 @@ import sample02Img from '../assets/sample02.png';
 import doctor01Img from '../assets/doctor01.png';
 import grass01Img from '../assets/grass01.png';
 import bush01Img from '../assets/bush01.png';
+import teleport01Img from '../assets/teleport1.png';
+import teleport02Img from '../assets/teleport2.png';
 
 export const floor01 = floor01Img;
 export const floor02 = floor02Img;
@@ -19,3 +21,5 @@ export const sample02 = sample02Img;
 export const doctor01 = doctor01Img;
 export const grass01 = grass01Img;
 export const bush01 = bush01Img;
+export const teleport01 = teleport01Img;
+export const teleport02 = teleport02Img;

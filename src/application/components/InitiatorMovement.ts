@@ -1,54 +1,81 @@
 import * as ECS from '@libs/pixi-ecs';
 import * as _ from 'lodash';
+import teleporters from '../teleporters.json5';
 
-import { ACTION, mazeMatrix } from '../constants';
+import {
+	ACTION,
+	containerSmallHeightShift,
+	containerSmallWidthShift,
+	mazeBlockSize,
+	mazeMatrix,
+} from '../constants';
 
 export class InitiatorMovement extends ECS.Component {
+	state = {
+		x: containerSmallWidthShift,
+		y: containerSmallHeightShift,
+	};
+
 	onUpdate(delta: number, absolute: number) {
 		let cmp = this.scene.findGlobalComponentByName<ECS.KeyInputComponent>(
 			ECS.KeyInputComponent.name,
 		);
 
-		const distance = delta * 0.2;
+		const distance = delta * 0.15;
 		let shiftX = 0;
 		let shiftY = 0;
 		// const distance = Math.ceil(delta * 0.2);
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_D) && this._hasCollisionMaze(this.owner, distance, 0)) {
-			shiftX += distance;
+		if (cmp.isKeyPressed(ECS.Keys.KEY_D)) {
+			if (this._hasCollisionMaze(this.owner, distance, 0) != 1) shiftX += distance;
 		}
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_A) && this._hasCollisionMaze(this.owner, -distance, 0)) {
-			shiftX -= distance;
+		if (cmp.isKeyPressed(ECS.Keys.KEY_A)) {
+			if (this._hasCollisionMaze(this.owner, -distance, 0) != 1) shiftX -= distance;
 		}
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_W) && this._hasCollisionMaze(this.owner, 0, -distance)) {
-			shiftY -= distance;
+		if (cmp.isKeyPressed(ECS.Keys.KEY_W)) {
+			if (this._hasCollisionMaze(this.owner, 0, -distance) != 1) shiftY -= distance;
 		}
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_S) && this._hasCollisionMaze(this.owner, 0, distance)) {
-			shiftY += distance;
+		if (cmp.isKeyPressed(ECS.Keys.KEY_S)) {
+			if (this._hasCollisionMaze(this.owner, 0, distance) != 1) shiftY += distance;
 		}
 
+		if (this._hasCollisionMaze(null, shiftX, shiftY) == 7) {
+			const tp = teleporters.teleporters['0x7'];
+			const newcoord = [tp[0] * mazeBlockSize - this.state.x, tp[1] * mazeBlockSize - this.state.y];
+			shiftX = newcoord[0];
+			shiftY = newcoord[1];
+		}
+
+		// If was movement - send message
 		if (!_.isEqual([shiftX, shiftY], [0, 0])) {
 			this.sendMessage(ACTION.MOVEMENT, [shiftX, shiftY]);
+			this.state.x += shiftX;
+			this.state.y += shiftY;
 		}
 	}
 
-	_hasCollisionMaze = (obj, x, y) => {
-		const nextYT = obj.position.y + 6 + 4 + y;
-		const nextXL = obj.position.x + 6 + x;
-		const nextXR = obj.position.x - 6 + x;
-		const nextYB = obj.position.y + 6 + y;
-		const quadrant1 = [Math.floor(nextXL / 24), Math.floor(nextYT / 24)];
-		const quadrant2 = [Math.floor(nextXL / 24), Math.floor(nextYB / 24)];
-		const quadrant3 = [Math.floor(nextXR / 24), Math.floor(nextYT / 24)];
-		const quadrant4 = [Math.floor(nextXR / 24), Math.floor(nextYB / 24)];
-		return (
-			mazeMatrix[quadrant1[1]][quadrant1[0]] !== 1 &&
-			mazeMatrix[quadrant2[1]][quadrant2[0]] !== 1 &&
-			mazeMatrix[quadrant3[1]][quadrant3[0]] !== 1 &&
-			mazeMatrix[quadrant4[1]][quadrant4[0]] !== 1
-		);
+	_hasCollisionMaze = (obj, x, y): number => {
+		const doctorX = this.state.x + x;
+		const doctorY = this.state.y + y;
+		return mazeMatrix[Math.floor(doctorY / 24)][Math.floor(doctorX / 24)];
+
+		// const nextYT = obj.position.y + 6 + 4 + y;
+		// const nextXL = obj.position.x + 6 + x;
+		// const nextXR = obj.position.x - 6 + x;
+		// const nextYB = obj.position.y + 6 + y;
+		// const quadrant1 = [Math.floor(nextXL / 24), Math.floor(nextYT / 24)];
+		// const quadrant2 = [Math.floor(nextXL / 24), Math.floor(nextYB / 24)];
+		// const quadrant3 = [Math.floor(nextXR / 24), Math.floor(nextYT / 24)];
+		// const quadrant4 = [Math.floor(nextXR / 24), Math.floor(nextYB / 24)];
+		//
+		// return (
+		// 	mazeMatrix[quadrant1[1]][quadrant1[0]] !== 1 &&
+		// 	mazeMatrix[quadrant2[1]][quadrant2[0]] !== 1 &&
+		// 	mazeMatrix[quadrant3[1]][quadrant3[0]] !== 1 &&
+		// 	mazeMatrix[quadrant4[1]][quadrant4[0]] !== 1
+		// );
 	};
 }
