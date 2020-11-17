@@ -8,6 +8,7 @@ import {
 	containerSmallWidthShift,
 	mazeBlockSize,
 	mazeMatrix,
+	SPEED_PLAYER,
 } from '../constants';
 
 export class InitiatorMovement extends ECS.Component {
@@ -21,7 +22,7 @@ export class InitiatorMovement extends ECS.Component {
 			ECS.KeyInputComponent.name,
 		);
 
-		const distance = delta * 0.15;
+		const distance = delta * SPEED_PLAYER;
 		let shiftX = 0;
 		let shiftY = 0;
 		// const distance = Math.ceil(delta * 0.2);
@@ -60,7 +61,7 @@ export class InitiatorMovement extends ECS.Component {
 	_hasCollisionMaze = (obj, x, y): number => {
 		const doctorX = this.state.x + x;
 		const doctorY = this.state.y + y;
-		return mazeMatrix[Math.floor(doctorY / 24)][Math.floor(doctorX / 24)];
+		return mazeMatrix[Math.floor(doctorY / mazeBlockSize)][Math.floor(doctorX / mazeBlockSize)];
 
 		// const nextYT = obj.position.y + 6 + 4 + y;
 		// const nextXL = obj.position.x + 6 + x;

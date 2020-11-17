@@ -1,8 +1,9 @@
 import * as ECS from '@libs/pixi-ecs';
+import 'pixi-filters';
 
 import { MovementBroker } from './brokers';
 import { VIEWPORT } from './constants';
-import { Doctor, GardenContainer } from './containers';
+import { Doctor, GardenContainer, StatsContainer } from './containers';
 import { loadResources } from './loader';
 import {
 	floor01,
@@ -42,6 +43,22 @@ class App {
 
 		const doctor = new Doctor();
 		this.engine.scene.stage.addChild(doctor);
+
+		let hole = new PIXI.Graphics();
+		hole.beginFill(0x111111);
+		hole.drawRect(0, 0, VIEWPORT.size.width, VIEWPORT.size.height);
+		hole.endFill();
+		hole.beginFill(0xcccccc);
+		hole.drawCircle(VIEWPORT.size.width / 2, VIEWPORT.size.height / 2, 300);
+		hole.endFill();
+		hole.filters = [new PIXI.filters.BlurFilter(150, 10)];
+		hole.filters[0].blendMode = PIXI.BLEND_MODES.MULTIPLY;
+		hole.filterArea = new PIXI.Rectangle(0, 0, VIEWPORT.size.width, VIEWPORT.size.height);
+
+		this.engine.scene.stage.addChild(hole);
+
+		const containerStats = new StatsContainer();
+		this.engine.scene.stage.addChild(containerStats);
 	}
 }
 

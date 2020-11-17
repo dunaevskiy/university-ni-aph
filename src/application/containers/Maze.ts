@@ -6,12 +6,12 @@ import {
 	containerBigWidth,
 	containerSmallHeightShift,
 	containerSmallWidthShift,
+	mazeBlockSize,
 	mazeHeightBlocks,
 	mazeMatrix,
 	mazeWidthBlocks,
 } from '../constants';
 import { loader } from '../loader';
-import { Doctor } from './Doctor';
 
 export class MazeContainer extends ECS.Container {
 	constructor() {
@@ -30,7 +30,7 @@ export class MazeContainer extends ECS.Container {
 					// let wall = loader.resources.wall01;
 
 					const rectangle = new PIXI.Sprite(wall.texture);
-					rectangle.position.set(c * 24, r * 24);
+					rectangle.position.set(c * mazeBlockSize, r * mazeBlockSize);
 					this.addChild(rectangle);
 					continue;
 				}
@@ -44,7 +44,7 @@ export class MazeContainer extends ECS.Container {
 					floor = loader.resources.floor03;
 
 				const rectangle = new PIXI.Sprite(floor.texture);
-				rectangle.position.set(c * 24, r * 24);
+				rectangle.position.set(c * mazeBlockSize, r * mazeBlockSize);
 				this.addChild(rectangle);
 
 				/**
@@ -54,7 +54,7 @@ export class MazeContainer extends ECS.Container {
 				if (mazeMatrix[r][c] == 0x7) {
 					let teleport = loader.resources.teleport01.texture;
 					const rectangle = new PIXI.Sprite(teleport);
-					rectangle.position.set(c * 24, r * 24);
+					rectangle.position.set(c * mazeBlockSize, r * mazeBlockSize);
 					this.addChild(rectangle);
 				}
 			}
