@@ -1,16 +1,18 @@
 import * as PIXI from 'pixi.js';
 import * as ECS from '@libs/pixi-ecs';
 
-import { containerBigHeight, containerBigWidth, VIEWPORT } from '../constants';
-import { MovingReverseComponent } from '../components';
-import { loader } from '../loader';
-import { MazeContainer } from './Maze';
+import { containerBigHeight, containerBigWidth, VIEWPORT } from '../../constants';
+import { MovingReverseComponent } from '../../components';
+import { loader } from '../../loader';
+import { Maze } from './Maze/Maze';
 
-export class GardenContainer extends ECS.Container {
+export class Map extends ECS.Container {
+	maze = new Maze();
+
 	constructor() {
 		super();
 		this.pivot.set(containerBigWidth / 2, containerBigHeight / 2);
-		this.position.set(VIEWPORT.size.width / 2, VIEWPORT.size.height / 2);
+		this.position.set(VIEWPORT.width / 2, VIEWPORT.height / 2);
 
 		this.addComponent(new MovingReverseComponent());
 
@@ -37,8 +39,7 @@ export class GardenContainer extends ECS.Container {
 	}
 
 	init() {
-		const containerMaze = new MazeContainer();
-		this.addChild(containerMaze);
-		containerMaze.init();
+		this.addChild(this.maze);
+		this.maze.init();
 	}
 }

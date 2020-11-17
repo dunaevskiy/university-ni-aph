@@ -22,12 +22,12 @@ export class Stats extends ECS.Container {
 
 		this.addChild(this.collectableItems);
 		this.collectableItems.init();
-		this.collectableItems.position.set(P1, VIEWPORT.size.height - P1);
+		this.collectableItems.position.set(P1, VIEWPORT.height - P1);
 		this.collectableItems.pivot.set(0, this.collectableItems.height);
 
 		this.addChild(this.version);
 		this.version.init();
-		this.version.position.set(VIEWPORT.size.width - P1, VIEWPORT.size.height - P1);
+		this.version.position.set(VIEWPORT.width - P1, VIEWPORT.height - P1);
 		this.version.pivot.set(this.version.width, this.version.height);
 	}
 }

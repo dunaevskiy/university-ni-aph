@@ -1,10 +1,8 @@
 import mazes from '../maze.json5';
 
 export const VIEWPORT = {
-	size: {
-		width: window.innerWidth,
-		height: window.innerHeight,
-	},
+	width: window.innerWidth,
+	height: window.innerHeight,
 };
 
 export const ACTION = {
@@ -19,17 +17,21 @@ export const SPEED_MONSTER = 0.4;
 export const P1 = 16;
 export const P2 = 32;
 
-export const mazeMatrix: number[][] = mazes.mapsHexa.alpha;
-export const mazeWidthBlocks: number = mazeMatrix[0].length;
-export const mazeHeightBlocks: number = mazeMatrix.length;
-export const mazeBlockSize: number = 48;
+const matrix = mazes.mapsHexa.alpha;
 
-export const containerBigWidth = VIEWPORT.size.width * 2 + mazeWidthBlocks * mazeBlockSize;
+export const MAZE = {
+	matrix,
+	blocksCountX: matrix[0].length,
+	blocksCountY: matrix.length,
+};
+export const BLOCK_SIZE: number = 48;
+
+export const containerBigWidth = VIEWPORT.width * 2 + MAZE.blocksCountX * BLOCK_SIZE;
 export const containerBigWidthShift = containerBigWidth / 2;
-export const containerBigHeight = VIEWPORT.size.height * 2 + mazeHeightBlocks * mazeBlockSize;
+export const containerBigHeight = VIEWPORT.height * 2 + MAZE.blocksCountY * BLOCK_SIZE;
 export const containerBigHeightShift = -containerBigHeight / 2;
 
-export const containerSmallWidth = mazeWidthBlocks * mazeBlockSize;
+export const containerSmallWidth = MAZE.blocksCountX * BLOCK_SIZE;
 export const containerSmallWidthShift = containerSmallWidth / 2;
-export const containerSmallHeight = mazeHeightBlocks * mazeBlockSize;
+export const containerSmallHeight = MAZE.blocksCountY * BLOCK_SIZE;
 export const containerSmallHeightShift = containerSmallHeight / 2;

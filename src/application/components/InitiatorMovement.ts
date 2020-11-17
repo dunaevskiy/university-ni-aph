@@ -6,8 +6,8 @@ import {
 	ACTION,
 	containerSmallHeightShift,
 	containerSmallWidthShift,
-	mazeBlockSize,
-	mazeMatrix,
+	BLOCK_SIZE,
+	MAZE,
 	SPEED_PLAYER,
 } from '../constants';
 
@@ -45,7 +45,7 @@ export class InitiatorMovement extends ECS.Component {
 
 		if (this._hasCollisionMaze(null, shiftX, shiftY) == 7) {
 			const tp = teleporters.teleporters['0x7'];
-			const newcoord = [tp[0] * mazeBlockSize - this.state.x, tp[1] * mazeBlockSize - this.state.y];
+			const newcoord = [tp[0] * BLOCK_SIZE - this.state.x, tp[1] * BLOCK_SIZE - this.state.y];
 			shiftX = newcoord[0];
 			shiftY = newcoord[1];
 		}
@@ -61,7 +61,7 @@ export class InitiatorMovement extends ECS.Component {
 	_hasCollisionMaze = (obj, x, y): number => {
 		const doctorX = this.state.x + x;
 		const doctorY = this.state.y + y;
-		return mazeMatrix[Math.floor(doctorY / mazeBlockSize)][Math.floor(doctorX / mazeBlockSize)];
+		return MAZE.matrix[Math.floor(doctorY / BLOCK_SIZE)][Math.floor(doctorX / BLOCK_SIZE)];
 
 		// const nextYT = obj.position.y + 6 + 4 + y;
 		// const nextXL = obj.position.x + 6 + x;
@@ -73,10 +73,10 @@ export class InitiatorMovement extends ECS.Component {
 		// const quadrant4 = [Math.floor(nextXR / 24), Math.floor(nextYB / 24)];
 		//
 		// return (
-		// 	mazeMatrix[quadrant1[1]][quadrant1[0]] !== 1 &&
-		// 	mazeMatrix[quadrant2[1]][quadrant2[0]] !== 1 &&
-		// 	mazeMatrix[quadrant3[1]][quadrant3[0]] !== 1 &&
-		// 	mazeMatrix[quadrant4[1]][quadrant4[0]] !== 1
+		// 	MAZE.matrix[quadrant1[1]][quadrant1[0]] !== 1 &&
+		// 	MAZE.matrix[quadrant2[1]][quadrant2[0]] !== 1 &&
+		// 	MAZE.matrix[quadrant3[1]][quadrant3[0]] !== 1 &&
+		// 	MAZE.matrix[quadrant4[1]][quadrant4[0]] !== 1
 		// );
 	};
 }

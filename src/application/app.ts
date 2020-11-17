@@ -3,7 +3,7 @@ import 'pixi-filters';
 
 import { MovementBroker } from './brokers';
 import { VIEWPORT } from './constants';
-import { Doctor, GardenContainer, Stats } from './containers';
+import { Doctor, Map, Stats } from './containers';
 import { loadResources } from './loader';
 import {
 	floor01,
@@ -29,8 +29,8 @@ class App {
 		let canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
 
 		this.engine.init(canvas, {
-			width: VIEWPORT.size.width,
-			height: VIEWPORT.size.height,
+			width: VIEWPORT.width,
+			height: VIEWPORT.height,
 			antialias: false,
 			resolution: 1,
 		});
@@ -38,7 +38,7 @@ class App {
 		this.engine.scene.addGlobalComponent(new ECS.KeyInputComponent());
 		this.engine.scene.addGlobalComponent(new MovementBroker());
 
-		const containerGarden = new GardenContainer();
+		const containerGarden = new Map();
 		this.engine.scene.stage.addChild(containerGarden);
 		containerGarden.init();
 
@@ -47,14 +47,14 @@ class App {
 
 		let hole = new PIXI.Graphics();
 		hole.beginFill(0x111111);
-		hole.drawRect(0, 0, VIEWPORT.size.width, VIEWPORT.size.height);
+		hole.drawRect(0, 0, VIEWPORT.width, VIEWPORT.height);
 		hole.endFill();
 		hole.beginFill(0xcccccc);
-		hole.drawCircle(VIEWPORT.size.width / 2, VIEWPORT.size.height / 2, 300);
+		hole.drawCircle(VIEWPORT.width / 2, VIEWPORT.height / 2, 300);
 		hole.endFill();
 		hole.filters = [new PIXI.filters.BlurFilter(150, 10)];
 		hole.filters[0].blendMode = PIXI.BLEND_MODES.MULTIPLY;
-		hole.filterArea = new PIXI.Rectangle(0, 0, VIEWPORT.size.width, VIEWPORT.size.height);
+		hole.filterArea = new PIXI.Rectangle(0, 0, VIEWPORT.width, VIEWPORT.height);
 
 		this.engine.scene.stage.addChild(hole);
 

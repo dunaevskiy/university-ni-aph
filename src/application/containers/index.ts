@@ -1,4 +1,3 @@
 export * from './Doctor';
-export * from './Garden';
-export * from './Maze';
-export * from './Stats';
+export * from './Map/Map';
+export * from './Stats/Stats';
