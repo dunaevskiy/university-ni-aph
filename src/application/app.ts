@@ -3,7 +3,7 @@ import 'pixi-filters';
 
 import { MovementBroker } from './brokers';
 import { VIEWPORT } from './constants';
-import { Doctor, GardenContainer, StatsContainer } from './containers';
+import { Doctor, GardenContainer, Stats } from './containers';
 import { loadResources } from './loader';
 import {
 	floor01,
@@ -18,6 +18,7 @@ import {
 	bush01,
 	teleport01,
 	teleport02,
+	monster01,
 } from '../assets';
 
 class App {
@@ -57,8 +58,9 @@ class App {
 
 		this.engine.scene.stage.addChild(hole);
 
-		const containerStats = new StatsContainer();
+		const containerStats = new Stats();
 		this.engine.scene.stage.addChild(containerStats);
+		containerStats.init();
 	}
 }
 
@@ -76,6 +78,7 @@ class App {
 		{ name: 'bush01', url: bush01 },
 		{ name: 'teleport01', url: teleport01 },
 		{ name: 'teleport02', url: teleport02 },
+		{ name: 'monster01', url: monster01 },
 	]);
 
 	new App();
