@@ -9,14 +9,14 @@ export class MovingReverseComponent extends ECS.Component {
 	}
 
 	onInit() {
-		this.subscribe(ACTION.MOVEMENT_REVERSE);
+		this.subscribe(ACTION.MOVEMENT);
 	}
 
 	onMessage(msg: ECS.Message): any {
-		if (msg.action === ACTION.MOVEMENT_REVERSE) {
+		if (msg.action === ACTION.MOVEMENT) {
 			const [x, y] = this.state;
 			const [xS, yS] = msg.data;
-			this._setState([x + xS, y + yS]);
+			this._setState([x - xS, y - yS]);
 		}
 	}
 

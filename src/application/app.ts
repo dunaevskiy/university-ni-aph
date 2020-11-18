@@ -1,7 +1,6 @@
 import * as ECS from '@libs/pixi-ecs';
 import 'pixi-filters';
 
-import { MovementBroker } from './brokers';
 import { VIEWPORT } from './constants';
 import { Doctor, Map, Stats } from './containers';
 import { loadResources } from './loader';
@@ -36,7 +35,6 @@ class App {
 		});
 
 		this.engine.scene.addGlobalComponent(new ECS.KeyInputComponent());
-		this.engine.scene.addGlobalComponent(new MovementBroker());
 
 		const containerGarden = new Map();
 		this.engine.scene.stage.addChild(containerGarden);
