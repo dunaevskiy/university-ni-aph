@@ -25,7 +25,7 @@ export class Maze extends ECS.Container {
 				// Generate wall
 				if (MAZE.matrix[r][c] == 0x1) {
 					let wall =
-						r == MAZE.matrix.length - 1 || MAZE.matrix[r + 1][c] == 0
+						r == MAZE.matrix.length - 1 || MAZE.matrix[r + 1][c] == 0 || MAZE.matrix[r + 1][c] == 9
 							? loader.resources.wall02
 							: loader.resources.wall01;
 					// let wall = loader.resources.wall01;
@@ -36,17 +36,21 @@ export class Maze extends ECS.Container {
 					continue;
 				}
 
-				// Generate floor
-				let floor =
-					r > 1 && MAZE.matrix[r - 1][c] == 1 ? loader.resources.floor02 : loader.resources.floor01;
+				if (MAZE.matrix[r][c] == 0x0) {
+					// Generate floor
+					let floor =
+						r > 1 && MAZE.matrix[r - 1][c] == 1
+							? loader.resources.floor02
+							: loader.resources.floor01;
 
-				// let floor = loader.resources.floor01;
-				if (floor == loader.resources.floor01 && Math.random() > 0.7)
-					floor = loader.resources.floor03;
+					// let floor = loader.resources.floor01;
+					if (floor == loader.resources.floor01 && Math.random() > 0.8)
+						floor = loader.resources.floor03;
 
-				const rectangle = new PIXI.Sprite(floor.texture);
-				rectangle.position.set(c * BLOCK_SIZE, r * BLOCK_SIZE);
-				this.addChild(rectangle);
+					const rectangle = new PIXI.Sprite(floor.texture);
+					rectangle.position.set(c * BLOCK_SIZE, r * BLOCK_SIZE);
+					this.addChild(rectangle);
+				}
 
 				/**
 				 * Object on the floor

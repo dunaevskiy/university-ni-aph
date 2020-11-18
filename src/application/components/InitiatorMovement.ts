@@ -51,7 +51,7 @@ export class InitiatorMovement extends ECS.Component {
 		}
 
 		// If was movement - send message
-		if (!_.isEqual([shiftX, shiftY], [0, 0])) {
+		if (shiftX != 0 || shiftY != 0) {
 			this.sendMessage(ACTION.MOVEMENT, [shiftX, shiftY]);
 			this.state.x += shiftX;
 			this.state.y += shiftY;

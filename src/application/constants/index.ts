@@ -12,7 +12,7 @@ export const ACTION = {
 };
 
 export const SPEED_PLAYER = 0.3;
-export const SPEED_MONSTER = 0.4;
+export const SPEED_MONSTER = 0.15;
 
 export const P1 = 16;
 export const P2 = 32;
