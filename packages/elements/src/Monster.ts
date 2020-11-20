@@ -1,7 +1,7 @@
 import * as ECS from '@libs/pixi-ecs';
-import { BLOCK_SIZE } from '../../../constants';
-import { loader } from '../../../loader';
-import { MovementChaser } from '../../../components';
+import { BLOCK_SIZE } from '@packages/constants';
+import { MovementChaser } from '@packages/components';
+import { loader } from '@packages/utils';
 
 export class Monster extends ECS.Sprite {
 	constructor() {

@@ -1,6 +1,4 @@
-import maps from '../maps.json5';
-
-export * from './actions';
+import maps from './maps.json5';
 
 export const VIEWPORT = {
 	width: window.innerWidth,

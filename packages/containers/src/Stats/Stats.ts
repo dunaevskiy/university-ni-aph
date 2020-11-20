@@ -1,9 +1,9 @@
 import * as ECS from '@libs/pixi-ecs';
+import { P1, VIEWPORT } from '@packages/constants';
 
 import { Logo } from './Logo';
 import { CollectedItems } from './CollectedItems';
 import { Version } from './Version';
-import { P1, VIEWPORT } from '../../constants';
 
 export class Stats extends ECS.Container {
 	logo = new Logo();

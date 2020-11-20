@@ -12,16 +12,24 @@ import teleport01Img from '../assets/teleport1.png';
 import teleport02Img from '../assets/teleport2.png';
 import monster01Img from '../assets/monster01.png';
 
-export const floor01 = floor01Img;
-export const floor02 = floor02Img;
-export const floor03 = floor03Img;
-export const wall01 = wall01Img;
-export const wall02 = wall02Img;
-export const sample01 = sample01Img;
-export const sample02 = sample02Img;
-export const doctor01 = doctor01Img;
-export const grass01 = grass01Img;
-export const bush01 = bush01Img;
-export const teleport01 = teleport01Img;
-export const teleport02 = teleport02Img;
-export const monster01 = monster01Img;
+export const ASSETS = {
+	floor01: floor01Img,
+	floor02: floor02Img,
+	floor03: floor03Img,
+	wall01: wall01Img,
+	wall02: wall02Img,
+	sample01: sample01Img,
+	sample02: sample02Img,
+	doctor01: doctor01Img,
+	grass01: grass01Img,
+	bush01: bush01Img,
+	teleport01: teleport01Img,
+	teleport02: teleport02Img,
+	monster01: monster01Img,
+};
+
+export const RESOURCES = (() => {
+	let resources = [];
+	for (let name in ASSETS) resources.push({ name, url: ASSETS[name] });
+	return resources;
+})();

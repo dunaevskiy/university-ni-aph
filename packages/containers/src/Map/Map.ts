@@ -1,10 +1,11 @@
 import * as PIXI from 'pixi.js';
-import * as ECS from '@libs/pixi-ecs';
 
-import { CONTAINER, VIEWPORT } from '../../constants';
-import { MovingReverseComponent } from '../../components';
-import { loader } from '../../loader';
-import { Maze } from './Maze/Maze';
+import * as ECS from '@libs/pixi-ecs';
+import { CONTAINER, VIEWPORT } from '@packages/constants';
+import { MovingReverseComponent } from '@packages/components';
+import { loader } from '@packages/utils';
+
+import { Maze } from './Maze';
 
 export class Map extends ECS.Container {
 	maze = new Maze();

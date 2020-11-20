@@ -1,5 +1,5 @@
 import * as ECS from '@libs/pixi-ecs';
-import { loader } from '../../../../loader';
+import { loader } from '@packages/utils';
 
 export class Sample extends ECS.Sprite {
 	constructor() {

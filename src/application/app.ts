@@ -1,24 +1,11 @@
-import * as ECS from '@libs/pixi-ecs';
 import 'pixi-filters';
 
-import { VIEWPORT } from './constants';
-import { Doctor, Map, Stats } from './containers';
-import { loadResources } from './loader';
-import {
-	floor01,
-	floor02,
-	floor03,
-	wall01,
-	wall02,
-	sample01,
-	sample02,
-	doctor01,
-	grass01,
-	bush01,
-	teleport01,
-	teleport02,
-	monster01,
-} from '../assets';
+import * as ECS from '@libs/pixi-ecs';
+import { VIEWPORT } from '@packages/constants';
+import { Doctor, Map, Stats } from '@packages/containers';
+import { loadResources } from '@packages/utils';
+
+import { RESOURCES } from '../assets';
 
 class App {
 	engine: ECS.Engine;
@@ -63,21 +50,6 @@ class App {
 }
 
 (async () => {
-	await loadResources([
-		{ name: 'floor01', url: floor01 },
-		{ name: 'floor02', url: floor02 },
-		{ name: 'floor03', url: floor03 },
-		{ name: 'wall01', url: wall01 },
-		{ name: 'wall02', url: wall02 },
-		{ name: 'sample01', url: sample01 },
-		{ name: 'sample02', url: sample02 },
-		{ name: 'doctor01', url: doctor01 },
-		{ name: 'grass01', url: grass01 },
-		{ name: 'bush01', url: bush01 },
-		{ name: 'teleport01', url: teleport01 },
-		{ name: 'teleport02', url: teleport02 },
-		{ name: 'monster01', url: monster01 },
-	]);
-
+	await loadResources(RESOURCES);
 	new App();
 })();

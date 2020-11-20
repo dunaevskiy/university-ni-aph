@@ -1,7 +1,7 @@
 import * as ECS from '@libs/pixi-ecs';
-import { BLOCK_SIZE, VIEWPORT } from '../constants';
-import { InitiatorMovement } from '../components';
-import { loader } from '../loader';
+import { BLOCK_SIZE, VIEWPORT } from '@packages/constants';
+import { InitiatorMovement } from '@packages/components';
+import { loader } from '@packages/utils';
 
 export class Doctor extends ECS.Sprite {
 	constructor() {

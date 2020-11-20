@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js';
+
 import * as ECS from '@libs/pixi-ecs';
-import { loader } from '../../loader';
-import { P1 } from '../../constants';
+import { P1 } from '@packages/constants';
+import { loader } from '@packages/utils';
 
 const style = new PIXI.TextStyle({
 	fontFamily: 'Arial',

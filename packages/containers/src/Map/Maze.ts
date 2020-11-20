@@ -1,11 +1,9 @@
 import * as PIXI from 'pixi.js';
-import * as ECS from '@libs/pixi-ecs';
 
-import { CONTAINER, BLOCK_SIZE, MAZE, MAP } from '../../../constants';
-import { loader } from '../../../loader';
-import { Monster } from './Monster';
-import { Teleport } from './Elements/Teleport';
-import { Sample } from './Elements/Sample';
+import * as ECS from '@libs/pixi-ecs';
+import { CONTAINER, BLOCK_SIZE, MAZE, MAP } from '@packages/constants';
+import { Monster, Sample, Teleport } from '@packages/elements';
+import { loader } from '@packages/utils';
 
 export class Maze extends ECS.Container {
 	monster = new Monster();

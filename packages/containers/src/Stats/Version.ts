@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+
 import * as ECS from '@libs/pixi-ecs';
 
 import packageJson from '../../../../package.json';

@@ -1,0 +1,9 @@
+{
+  "name": "@packages/utils",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@libs/pixi-ecs": "^1.0.0"
+  }
+}

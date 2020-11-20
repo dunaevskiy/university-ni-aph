@@ -1,6 +1,6 @@
 import * as ECS from '@libs/pixi-ecs';
 
-import { SPEED_MONSTER } from '../constants';
+import { SPEED_MONSTER } from '@packages/constants';
 
 export class MovementChaser extends ECS.Component {
 	state = {
