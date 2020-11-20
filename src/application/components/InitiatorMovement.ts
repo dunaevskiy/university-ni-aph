@@ -1,20 +1,11 @@
 import * as ECS from '@libs/pixi-ecs';
-import * as _ from 'lodash';
-import teleporters from '../teleporters.json5';
 
-import {
-	ACTION,
-	containerSmallHeightShift,
-	containerSmallWidthShift,
-	BLOCK_SIZE,
-	MAZE,
-	SPEED_PLAYER,
-} from '../constants';
+import { ACTION, CONTAINER, BLOCK_SIZE, MAZE, SPEED_PLAYER } from '../constants';
 
 export class InitiatorMovement extends ECS.Component {
 	state = {
-		x: containerSmallWidthShift,
-		y: containerSmallHeightShift,
+		x: CONTAINER.small.width / 2,
+		y: CONTAINER.small.height / 2,
 	};
 
 	onUpdate(delta: number, absolute: number) {
@@ -43,18 +34,19 @@ export class InitiatorMovement extends ECS.Component {
 			if (this._hasCollisionMaze(this.owner, 0, distance) != 1) shiftY += distance;
 		}
 
-		if (this._hasCollisionMaze(null, shiftX, shiftY) == 7) {
-			const tp = teleporters.teleporters['0x7'];
-			const newcoord = [tp[0] * BLOCK_SIZE - this.state.x, tp[1] * BLOCK_SIZE - this.state.y];
-			shiftX = newcoord[0];
-			shiftY = newcoord[1];
-		}
+		// if (this._hasCollisionMaze(null, shiftX, shiftY) == 7) {
+		// 	const tp = maps.teleporters['0x7'];
+		// 	const newcoord = [tp[0] * BLOCK_SIZE - this.state.x, tp[1] * BLOCK_SIZE - this.state.y];
+		// 	shiftX = newcoord[0];
+		// 	shiftY = newcoord[1];
+		// }
 
 		// If was movement - send message
 		if (shiftX != 0 || shiftY != 0) {
 			this.sendMessage(ACTION.MOVEMENT, [shiftX, shiftY]);
 			this.state.x += shiftX;
 			this.state.y += shiftY;
+			this.sendMessage(ACTION.MOVEMENT_MC_NOTIFICATION, { x: this.state.x, y: this.state.y });
 		}
 	}
 
