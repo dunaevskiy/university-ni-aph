@@ -10,11 +10,6 @@ export class Stats extends ECS.Container {
 	collectableItems = new CollectedItems();
 	version = new Version();
 
-	constructor() {
-		super();
-		this.position.set(0, 0);
-	}
-
 	init() {
 		this.addChild(this.logo);
 		this.logo.init();

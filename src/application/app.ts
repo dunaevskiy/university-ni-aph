@@ -2,8 +2,9 @@ import 'pixi-filters';
 
 import * as ECS from '@libs/pixi-ecs';
 import { VIEWPORT } from '@packages/constants';
-import { Doctor, Map, Stats } from '@packages/containers';
+import { Map, Stats } from '@packages/containers';
 import { loadResources } from '@packages/utils';
+import { Flashlight, Person } from '@packages/elements';
 
 import { RESOURCES } from '../assets';
 
@@ -12,7 +13,7 @@ class App {
 
 	constructor() {
 		this.engine = new ECS.Engine();
-		let canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+		const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
 
 		this.engine.init(canvas, {
 			width: VIEWPORT.width,
@@ -23,29 +24,24 @@ class App {
 
 		this.engine.scene.addGlobalComponent(new ECS.KeyInputComponent());
 
-		const containerGarden = new Map();
-		this.engine.scene.stage.addChild(containerGarden);
-		containerGarden.init();
+		this._renderScene();
+	}
 
-		const doctor = new Doctor();
-		this.engine.scene.stage.addChild(doctor);
+	_renderScene() {
+		const map = new Map();
+		this.engine.scene.stage.addChild(map);
+		map.init();
 
-		let hole = new PIXI.Graphics();
-		hole.beginFill(0x111111);
-		hole.drawRect(0, 0, VIEWPORT.width, VIEWPORT.height);
-		hole.endFill();
-		hole.beginFill(0xcccccc);
-		hole.drawCircle(VIEWPORT.width / 2, VIEWPORT.height / 2, 300);
-		hole.endFill();
-		hole.filters = [new PIXI.filters.BlurFilter(150, 10)];
-		hole.filters[0].blendMode = PIXI.BLEND_MODES.MULTIPLY;
-		hole.filterArea = new PIXI.Rectangle(0, 0, VIEWPORT.width, VIEWPORT.height);
+		const person = new Person();
+		this.engine.scene.stage.addChild(person);
+		person.position.set(VIEWPORT.width / 2, VIEWPORT.height / 2);
 
-		this.engine.scene.stage.addChild(hole);
+		const flashlight = new Flashlight();
+		this.engine.scene.stage.addChild(flashlight);
 
-		const containerStats = new Stats();
-		this.engine.scene.stage.addChild(containerStats);
-		containerStats.init();
+		const stats = new Stats();
+		this.engine.scene.stage.addChild(stats);
+		stats.init();
 	}
 }
 

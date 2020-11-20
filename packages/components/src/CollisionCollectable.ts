@@ -8,7 +8,8 @@ export class CollisionCollectable extends Collision {
 
 		this.actions = actionsToCall;
 	}
-	collisionAction() {
+
+	_collisionAction() {
 		// this.sendMessage()
 	}
 }

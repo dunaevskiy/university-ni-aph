@@ -8,7 +8,7 @@ import { loader } from '@packages/utils';
 import { Maze } from './Maze';
 
 export class Map extends ECS.Container {
-	maze = new Maze();
+	maze: Maze = new Maze();
 
 	constructor() {
 		super();
