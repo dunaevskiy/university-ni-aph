@@ -8,6 +8,8 @@ import { Flashlight, Person } from '@packages/elements';
 
 import { RESOURCES } from '../assets';
 
+PIXI.settings.ROUND_PIXELS = true;
+
 class App {
 	engine: ECS.Engine;
 
