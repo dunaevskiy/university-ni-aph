@@ -1,5 +1,6 @@
 import * as ECS from '@libs/pixi-ecs';
 import { ACTION, CONTAINER } from '@packages/constants';
+import { BLOCK_SIZE } from '@packages/constants/src';
 
 export abstract class Collision extends ECS.Component {
 	onInit() {
@@ -8,9 +9,15 @@ export abstract class Collision extends ECS.Component {
 
 	onMessage(msg): any {
 		if (msg.action === ACTION.MOVEMENT_MC_NOTIFICATION) {
-			if (msg.data.x <= CONTAINER.small.width / 2 - 100) {
-				this._collisionAction();
-			}
+			const x = this.owner.position.x;
+			const y = this.owner.position.y;
+			const foreignX = msg.data.x;
+			const foreignY = msg.data.y;
+
+			const distanceX = Math.abs(x - foreignX);
+			const distanceY = Math.abs(y - foreignY);
+
+			if (distanceX < BLOCK_SIZE / 2 && distanceY < BLOCK_SIZE / 2) this._collisionAction();
 		}
 	}
 

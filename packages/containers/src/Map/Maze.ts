@@ -68,7 +68,9 @@ export class Maze extends ECS.Container {
 		for (let teleport of MAP.teleports) {
 			const { from, to } = teleport;
 
-			const elem = new Teleport(to);
+			const [nextX, nextY] = to;
+
+			const elem = new Teleport([nextX * BLOCK_SIZE, nextY * BLOCK_SIZE]);
 			elem.position.set(from[0] * BLOCK_SIZE, from[1] * BLOCK_SIZE);
 			this.addChild(elem);
 		}

@@ -8,6 +8,10 @@ export class InitiatorMovement extends ECS.Component {
 		y: CONTAINER.small.height / 2,
 	};
 
+	onInit() {
+		this.subscribe(ACTION.TELEPORT_PERSON);
+	}
+
 	onUpdate(delta: number, absolute: number) {
 		let cmp = this.scene.findGlobalComponentByName<ECS.KeyInputComponent>(
 			ECS.KeyInputComponent.name,
@@ -16,59 +20,74 @@ export class InitiatorMovement extends ECS.Component {
 		const distance = delta * SPEED_PLAYER;
 		let shiftX = 0;
 		let shiftY = 0;
-		// const distance = Math.ceil(delta * 0.2);
 
 		if (cmp.isKeyPressed(ECS.Keys.KEY_D)) {
-			if (this._hasCollisionMaze(this.owner, distance, 0) != 1) shiftX += distance;
+			if (this._canStepAt(distance, 0)) shiftX += distance;
 		}
 
 		if (cmp.isKeyPressed(ECS.Keys.KEY_A)) {
-			if (this._hasCollisionMaze(this.owner, -distance, 0) != 1) shiftX -= distance;
+			if (this._canStepAt(-distance, 0)) shiftX -= distance;
 		}
 
 		if (cmp.isKeyPressed(ECS.Keys.KEY_W)) {
-			if (this._hasCollisionMaze(this.owner, 0, -distance) != 1) shiftY -= distance;
+			if (this._canStepAt(0, -distance)) shiftY -= distance;
 		}
 
 		if (cmp.isKeyPressed(ECS.Keys.KEY_S)) {
-			if (this._hasCollisionMaze(this.owner, 0, distance) != 1) shiftY += distance;
+			if (this._canStepAt(0, distance)) shiftY += distance;
 		}
-
-		// if (this._hasCollisionMaze(null, shiftX, shiftY) == 7) {
-		// 	const tp = maps.teleporters['0x7'];
-		// 	const newcoord = [tp[0] * BLOCK_SIZE - this.state.x, tp[1] * BLOCK_SIZE - this.state.y];
-		// 	shiftX = newcoord[0];
-		// 	shiftY = newcoord[1];
-		// }
 
 		// If was movement - send message
 		if (shiftX != 0 || shiftY != 0) {
-			this.sendMessage(ACTION.MOVEMENT, [shiftX, shiftY]);
-			this.state.x += shiftX;
-			this.state.y += shiftY;
-			this.sendMessage(ACTION.MOVEMENT_MC_NOTIFICATION, { x: this.state.x, y: this.state.y });
+			this._notifyAboutMovement(shiftX, shiftY);
 		}
 	}
 
-	_hasCollisionMaze = (obj, x, y): number => {
-		const doctorX = this.state.x + x;
-		const doctorY = this.state.y + y;
-		return MAZE.matrix[Math.floor(doctorY / BLOCK_SIZE)][Math.floor(doctorX / BLOCK_SIZE)];
+	onMessage(msg: ECS.Message): any {
+		if (msg.action === ACTION.TELEPORT_PERSON) {
+			const { destination } = msg.data;
 
-		// const nextYT = obj.position.y + 6 + 4 + y;
-		// const nextXL = obj.position.x + 6 + x;
-		// const nextXR = obj.position.x - 6 + x;
-		// const nextYB = obj.position.y + 6 + y;
-		// const quadrant1 = [Math.floor(nextXL / 24), Math.floor(nextYT / 24)];
-		// const quadrant2 = [Math.floor(nextXL / 24), Math.floor(nextYB / 24)];
-		// const quadrant3 = [Math.floor(nextXR / 24), Math.floor(nextYT / 24)];
-		// const quadrant4 = [Math.floor(nextXR / 24), Math.floor(nextYB / 24)];
-		//
-		// return (
-		// 	MAZE.matrix[quadrant1[1]][quadrant1[0]] !== 1 &&
-		// 	MAZE.matrix[quadrant2[1]][quadrant2[0]] !== 1 &&
-		// 	MAZE.matrix[quadrant3[1]][quadrant3[0]] !== 1 &&
-		// 	MAZE.matrix[quadrant4[1]][quadrant4[0]] !== 1
-		// );
+			const shiftX = destination[0] - this.state.x;
+			const shiftY = destination[1] - this.state.y;
+
+			this._notifyAboutMovement(shiftX, shiftY);
+		}
+	}
+
+	_notifyAboutMovement(shiftX, shiftY) {
+		this.sendMessage(ACTION.MOVEMENT, [shiftX, shiftY]);
+		this.state.x += shiftX;
+		this.state.y += shiftY;
+		this.sendMessage(ACTION.MOVEMENT_MC_NOTIFICATION, {
+			x: this.state.x,
+			y: this.state.y,
+		});
+	}
+
+	_canStepAt = (x, y) => {
+		const nextX = this.state.x + x;
+		const nextY = this.state.y + y;
+
+		const nextYT = nextY;
+		const nextXR = nextX + 0.25 * BLOCK_SIZE;
+		const nextYB = nextY + 0.5 * BLOCK_SIZE;
+		const nextXL = nextX - 0.25 * BLOCK_SIZE;
+
+		/**
+		 * Q1 | _ | Q2
+		 * __ | _ | __
+		 * Q3 | _ | Q4
+		 */
+		const Q1 = [Math.floor(nextXL / BLOCK_SIZE), Math.floor(nextYT / BLOCK_SIZE)];
+		const Q2 = [Math.floor(nextXR / BLOCK_SIZE), Math.floor(nextYT / BLOCK_SIZE)];
+		const Q3 = [Math.floor(nextXL / BLOCK_SIZE), Math.floor(nextYB / BLOCK_SIZE)];
+		const Q4 = [Math.floor(nextXR / BLOCK_SIZE), Math.floor(nextYB / BLOCK_SIZE)];
+
+		return (
+			MAZE.matrix[Q1[1]][Q1[0]] === 0 &&
+			MAZE.matrix[Q2[1]][Q2[0]] === 0 &&
+			MAZE.matrix[Q3[1]][Q3[0]] === 0 &&
+			MAZE.matrix[Q4[1]][Q4[0]] === 0
+		);
 	};
 }

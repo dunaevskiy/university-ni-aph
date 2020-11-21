@@ -1,4 +1,5 @@
 import { Collision } from './Collision';
+import { ACTION } from '@packages/constants/src';
 
 export class CollisionTeleport extends Collision {
 	destination: number[];
@@ -10,6 +11,6 @@ export class CollisionTeleport extends Collision {
 	}
 
 	_collisionAction() {
-		this.owner.destroy();
+		this.sendMessage(ACTION.TELEPORT_PERSON, { destination: this.destination });
 	}
 }
