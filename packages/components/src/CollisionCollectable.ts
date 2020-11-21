@@ -1,4 +1,5 @@
 import { Collision } from './Collision';
+import { ACTION } from '@packages/constants/src';
 
 export class CollisionCollectable extends Collision {
 	actions = [];
@@ -10,6 +11,7 @@ export class CollisionCollectable extends Collision {
 	}
 
 	_collisionAction() {
-		// this.sendMessage()
+		this.owner.detach();
+		this.sendMessage(ACTION.ADD_SCORE);
 	}
 }
