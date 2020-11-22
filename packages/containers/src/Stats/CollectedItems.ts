@@ -14,7 +14,6 @@ class ScoreCounter extends ECS.Component {
 
 	onMessage(msg: ECS.Message): any {
 		if (msg.action === ACTION.ADD_SCORE) {
-			console.log(`UP`);
 			// @ts-ignore
 			this.owner.increaseScore(1);
 		}

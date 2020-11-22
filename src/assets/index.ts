@@ -11,6 +11,8 @@ import bush01Img from '../assets/bush01.png';
 import teleport01Img from '../assets/teleport1.png';
 import teleport02Img from '../assets/teleport2.png';
 import monster01Img from '../assets/monster01.png';
+import flower01Img from '../assets/flower01.png';
+import tree01Img from '../assets/tree01.png';
 
 export const ASSETS = {
 	floor01: floor01Img,
@@ -26,6 +28,8 @@ export const ASSETS = {
 	teleport01: teleport01Img,
 	teleport02: teleport02Img,
 	monster01: monster01Img,
+	flower01: flower01Img,
+	tree01: tree01Img,
 };
 
 export const RESOURCES = (() => {

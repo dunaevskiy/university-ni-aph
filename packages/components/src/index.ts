@@ -5,3 +5,4 @@ export * from './InitiatorMovement';
 export * from './MovingReverseComponent';
 export * from './MovementChaser';
 export * from './TeleportHandler';
+export * from './SampleGenerator';

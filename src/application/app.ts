@@ -22,6 +22,7 @@ class App {
 			height: VIEWPORT.height,
 			antialias: false,
 			resolution: 1,
+			// resolution: 0.5,
 		});
 
 		this.engine.scene.addGlobalComponent(new ECS.KeyInputComponent());
@@ -39,7 +40,7 @@ class App {
 		person.position.set(VIEWPORT.width / 2, VIEWPORT.height / 2);
 
 		const flashlight = new Flashlight();
-		this.engine.scene.stage.addChild(flashlight);
+		// this.engine.scene.stage.addChild(flashlight);
 
 		const stats = new Stats();
 		this.engine.scene.stage.addChild(stats);
