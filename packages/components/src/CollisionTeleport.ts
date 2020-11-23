@@ -1,5 +1,6 @@
+import { ACTION } from '@packages/constants';
+
 import { Collision } from './Collision';
-import { ACTION } from '@packages/constants/src';
 
 export class CollisionTeleport extends Collision {
 	destination: number[];

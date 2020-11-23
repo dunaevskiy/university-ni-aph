@@ -1,6 +1,5 @@
 import * as ECS from '@libs/pixi-ecs';
-import { ACTION, CONTAINER } from '@packages/constants';
-import { BLOCK_SIZE } from '@packages/constants/src';
+import { ACTION, BLOCK_SIZE } from '@packages/constants';
 
 export abstract class Collision extends ECS.Component {
 	onInit() {

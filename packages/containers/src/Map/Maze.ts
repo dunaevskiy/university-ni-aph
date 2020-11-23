@@ -116,7 +116,7 @@ export class Maze extends ECS.Container {
 			}
 
 			const elem = new Sample();
-			elem.position.set(x * BLOCK_SIZE + 18, y * BLOCK_SIZE + 18);
+			elem.position.set(xCandidate * BLOCK_SIZE + 18, yCandidate * BLOCK_SIZE + 18);
 			this.addChild(elem);
 			break;
 		}

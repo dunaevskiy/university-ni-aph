@@ -1,9 +1,8 @@
 import * as PIXI from 'pixi.js';
 
 import * as ECS from '@libs/pixi-ecs';
-import { P1 } from '@packages/constants';
+import { ACTION, P1 } from '@packages/constants';
 import { loader } from '@packages/utils';
-import { ACTION } from '@packages/constants/src';
 
 // FIXME: rewrite score counting
 
@@ -61,7 +60,6 @@ export class CollectedItems extends ECS.Container {
 
 	increaseScore(number) {
 		this.state += number;
-		console.log(this.state);
 		this.rerender();
 	}
 }

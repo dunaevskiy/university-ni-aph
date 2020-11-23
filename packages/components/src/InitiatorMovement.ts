@@ -1,5 +1,4 @@
 import * as ECS from '@libs/pixi-ecs';
-
 import { ACTION, CONTAINER, BLOCK_SIZE, MAZE, SPEED_PLAYER } from '@packages/constants';
 
 export class InitiatorMovement extends ECS.Component {

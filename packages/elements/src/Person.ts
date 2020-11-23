@@ -1,5 +1,5 @@
 import * as ECS from '@libs/pixi-ecs';
-import { BLOCK_SIZE, VIEWPORT } from '@packages/constants';
+import { BLOCK_SIZE } from '@packages/constants';
 import { InitiatorMovement } from '@packages/components';
 import { loader } from '@packages/utils';
 

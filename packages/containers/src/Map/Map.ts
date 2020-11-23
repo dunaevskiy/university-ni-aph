@@ -1,9 +1,7 @@
-import * as PIXI from 'pixi.js';
-
 import * as ECS from '@libs/pixi-ecs';
 import { CONTAINER, VIEWPORT } from '@packages/constants';
 import { MovingReverseComponent } from '@packages/components';
-import { loader, randomBetween } from '@packages/utils';
+import { Grass, RandomGardenElement } from '@packages/elements';
 
 import { Maze } from './Maze';
 
@@ -17,35 +15,26 @@ export class Map extends ECS.Container {
 
 		this.addComponent(new MovingReverseComponent());
 
-		const garden = new PIXI.TilingSprite(
-			loader.resources.grass01.texture,
-			CONTAINER.big.width,
-			CONTAINER.big.height,
-		);
-		garden.zIndex = 1;
-		this.addChild(garden);
+		// Generate grass background
+		const grass = new Grass();
+		this.addChild(grass);
 
-		for (let r = 0; r < CONTAINER.big.height; r += 80) {
-			for (let c = 0; c < CONTAINER.big.width; c += 80) {
+		// Generate random garden elements (trees, flowers)
+		for (let r = 0; r < CONTAINER.big.height; r += 50) {
+			for (let c = 0; c < CONTAINER.big.width; c += 50) {
+				// Skip if it is the Maze territory
 				if (
-					r > VIEWPORT.height / 2 - 200 &&
-					r < CONTAINER.small.height + VIEWPORT.height / 2 - 50 &&
-					c > VIEWPORT.width / 2 - 200 &&
-					c < CONTAINER.small.width + VIEWPORT.width / 2 - 50
+					r > VIEWPORT.height / 2 - 150 &&
+					r < VIEWPORT.height / 2 + CONTAINER.small.height + 80 &&
+					c > VIEWPORT.width / 2 - 150 &&
+					c < VIEWPORT.width / 2 + CONTAINER.small.width + 80
 				)
 					continue;
-				const rnd = Math.random();
-				if (rnd > 0.6) {
-					let bush =
-						rnd < 0.8
-							? loader.resources.bush01
-							: rnd > 0.9
-							? loader.resources.tree01
-							: loader.resources.flower01;
-					const rectangle = new PIXI.Sprite(bush.texture);
-					rectangle.position.set(c + randomBetween(-50, 50), r + randomBetween(-50, 50));
-					rectangle.zIndex = 2;
-					this.addChild(rectangle);
+
+				const decision = Math.random() > 0.0;
+				if (decision) {
+					const gardenElement = new RandomGardenElement(c, r);
+					this.addChild(gardenElement);
 				}
 			}
 		}

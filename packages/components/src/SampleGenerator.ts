@@ -1,6 +1,5 @@
 import * as ECS from '@libs/pixi-ecs';
-
-import { SPEED_MONSTER, ACTION } from '@packages/constants';
+import { ACTION } from '@packages/constants';
 
 export class SampleGenerator extends ECS.Component {
 	onInit() {

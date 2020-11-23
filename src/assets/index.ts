@@ -5,6 +5,7 @@ import wall01Img from '../assets/wall01.png';
 import wall02Img from '../assets/wall02.png';
 import sample01Img from '../assets/sample01.png';
 import sample02Img from '../assets/sample02.png';
+import sample03Img from '../assets/sample03.png';
 import doctor01Img from '../assets/doctor01.png';
 import grass01Img from '../assets/grass01.png';
 import bush01Img from '../assets/bush01.png';
@@ -22,6 +23,7 @@ export const ASSETS = {
 	wall02: wall02Img,
 	sample01: sample01Img,
 	sample02: sample02Img,
+	sample03: sample03Img,
 	doctor01: doctor01Img,
 	grass01: grass01Img,
 	bush01: bush01Img,

@@ -1,11 +1,11 @@
 import * as ECS from '@libs/pixi-ecs';
 import { loader } from '@packages/utils';
-import { CollisionCollectable } from '@packages/components/src';
-import { ACTION } from '@packages/constants/src';
+import { ACTION } from '@packages/constants';
+import { CollisionCollectable } from '@packages/components';
 
 export class Sample extends ECS.Sprite {
 	constructor() {
-		const number = '0' + (Math.floor(Math.random() * Math.floor(2)) + 1);
+		const number = '0' + (Math.floor(Math.random() * Math.floor(3)) + 1);
 
 		super('sample', loader.resources[`sample${number}`].texture);
 
