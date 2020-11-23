@@ -1,5 +1,4 @@
 import { loader, randomBetween } from '@packages/utils';
-import { ACTION } from '@packages/constants';
 import { CollisionCollectable } from '@packages/components';
 
 import { OneBlockElement } from './OneBlockElement';
@@ -10,6 +9,6 @@ export class Sample extends OneBlockElement {
 
 		super('sample', loader.resources[`sample0${number}`].texture, 32);
 
-		this.addComponent(new CollisionCollectable([ACTION.ADD_SCORE]));
+		this.addComponent(new CollisionCollectable());
 	}
 }

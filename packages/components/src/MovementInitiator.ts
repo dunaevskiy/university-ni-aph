@@ -1,57 +1,56 @@
 import * as ECS from '@libs/pixi-ecs';
-import { ACTION, CONTAINER, BLOCK_SIZE, MAZE, SPEED_PLAYER } from '@packages/constants';
+import { ACTION, CONTAINER, BLOCK_SIZE, MAZE, SPEED_PLAYER, MAP } from '@packages/constants';
 
 export class MovementInitiator extends ECS.Component {
-	state = {
+	userInput: ECS.KeyInputComponent = null;
+	position = {
 		x: CONTAINER.small.width / 2,
 		y: CONTAINER.small.height / 2,
 	};
 
 	onInit() {
-		this.subscribe(ACTION.TELEPORT_PERSON);
-		this.sendMessage(ACTION.MOVEMENT_MC_NOTIFICATION, {
-			x: this.state.x,
-			y: this.state.y,
-		});
-	}
-
-	onUpdate(delta: number, absolute: number) {
-		let cmp = this.scene.findGlobalComponentByName<ECS.KeyInputComponent>(
+		// Listen user input
+		this.userInput = this.scene.findGlobalComponentByName<ECS.KeyInputComponent>(
 			ECS.KeyInputComponent.name,
 		);
 
+		// Listen collisions with teleports
+		this.subscribe(ACTION.COLLISION_WITH_TELEPORT);
+	}
+
+	onUpdate(delta: number, absolute: number) {
+		let x = 0;
+		let y = 0;
 		const distance = delta * SPEED_PLAYER;
-		let shiftX = 0;
-		let shiftY = 0;
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_D)) {
-			if (this._canStepAt(distance, 0)) shiftX += distance;
+		if (this.userInput.isKeyPressed(ECS.Keys.KEY_D)) {
+			if (this._canStepAt(distance, 0)) x += distance;
 		}
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_A)) {
-			if (this._canStepAt(-distance, 0)) shiftX -= distance;
+		if (this.userInput.isKeyPressed(ECS.Keys.KEY_A)) {
+			if (this._canStepAt(-distance, 0)) x -= distance;
 		}
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_W)) {
-			if (this._canStepAt(0, -distance)) shiftY -= distance;
+		if (this.userInput.isKeyPressed(ECS.Keys.KEY_W)) {
+			if (this._canStepAt(0, -distance)) y -= distance;
 		}
 
-		if (cmp.isKeyPressed(ECS.Keys.KEY_S)) {
-			if (this._canStepAt(0, distance)) shiftY += distance;
+		if (this.userInput.isKeyPressed(ECS.Keys.KEY_S)) {
+			if (this._canStepAt(0, distance)) y += distance;
 		}
 
-		// If was movement - send message
-		if (shiftX != 0 || shiftY != 0) {
-			this._notifyAboutMovement(shiftX, shiftY);
+		// If was movement - notify
+		if (x != 0 || y != 0) {
+			this._notifyAboutMovement(x, y);
 		}
 	}
 
 	onMessage(msg: ECS.Message): any {
-		if (msg.action === ACTION.TELEPORT_PERSON) {
+		if (msg.action === ACTION.COLLISION_WITH_TELEPORT) {
 			const { destination } = msg.data;
 
-			const shiftX = destination[0] - this.state.x;
-			const shiftY = destination[1] - this.state.y;
+			const shiftX = destination[0] - this.position.x;
+			const shiftY = destination[1] - this.position.y;
 
 			this._notifyAboutMovement(shiftX, shiftY);
 		}
@@ -59,17 +58,17 @@ export class MovementInitiator extends ECS.Component {
 
 	_notifyAboutMovement(shiftX, shiftY) {
 		this.sendMessage(ACTION.MOVEMENT, [shiftX, shiftY]);
-		this.state.x += shiftX;
-		this.state.y += shiftY;
-		this.sendMessage(ACTION.MOVEMENT_MC_NOTIFICATION, {
-			x: this.state.x,
-			y: this.state.y,
+		this.position.x += shiftX;
+		this.position.y += shiftY;
+		this.sendMessage(ACTION.MOVEMENT_OF_PERSON, {
+			x: this.position.x,
+			y: this.position.y,
 		});
 	}
 
 	_canStepAt = (x, y) => {
-		const nextX = this.state.x + x;
-		const nextY = this.state.y + y;
+		const nextX = this.position.x + x;
+		const nextY = this.position.y + y;
 
 		const nextYT = nextY;
 		const nextXR = nextX + 0.25 * BLOCK_SIZE;

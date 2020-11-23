@@ -38,6 +38,7 @@ class App {
 		const person = new Person();
 		this.engine.scene.stage.addChild(person);
 		person.position.set(VIEWPORT.width / 2, VIEWPORT.height / 2);
+		person.init();
 
 		const flashlight = new Flashlight();
 		this.engine.scene.stage.addChild(flashlight);
