@@ -40,8 +40,9 @@
 		],
 		// teleports and end points
 		teleports: [
-			//			{ from: [25, 1], to: [36, 1] },
-			//			{ from: [19, 14], to: [10, 14] },
+			{ from: [25, 1], to: [36, 1] },
+			{ from: [45, 8], to: [20, 10] },
+			{ from: [19, 14], to: [10, 14] },
 			{ from: [19, 16], to: [20, 14] },
 		],
 		// initial samples
@@ -83,5 +84,5 @@
 				//
 			],
 		},
-	}
+	},
 }

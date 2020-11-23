@@ -9,6 +9,10 @@ export class InitiatorMovement extends ECS.Component {
 
 	onInit() {
 		this.subscribe(ACTION.TELEPORT_PERSON);
+		this.sendMessage(ACTION.MOVEMENT_MC_NOTIFICATION, {
+			x: this.state.x,
+			y: this.state.y,
+		});
 	}
 
 	onUpdate(delta: number, absolute: number) {
