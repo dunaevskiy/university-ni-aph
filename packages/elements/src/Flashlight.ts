@@ -1,6 +1,9 @@
 import * as ECS from '@libs/pixi-ecs';
 import { VIEWPORT } from '@packages/constants';
 
+/**
+ * A fullscreen mask as a flashlight
+ */
 export class Flashlight extends ECS.Graphics {
 	constructor() {
 		super();

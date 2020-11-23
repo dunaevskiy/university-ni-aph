@@ -1,7 +1,7 @@
 import * as ECS from '@libs/pixi-ecs';
 import { ACTION, CONTAINER, BLOCK_SIZE, MAZE, SPEED_PLAYER } from '@packages/constants';
 
-export class InitiatorMovement extends ECS.Component {
+export class MovementInitiator extends ECS.Component {
 	state = {
 		x: CONTAINER.small.width / 2,
 		y: CONTAINER.small.height / 2,
@@ -81,10 +81,10 @@ export class InitiatorMovement extends ECS.Component {
 		 * __ | _ | __
 		 * Q3 | _ | Q4
 		 */
-		const Q1 = [Math.floor(nextXL / BLOCK_SIZE), Math.floor(nextYT / BLOCK_SIZE)];
-		const Q2 = [Math.floor(nextXR / BLOCK_SIZE), Math.floor(nextYT / BLOCK_SIZE)];
-		const Q3 = [Math.floor(nextXL / BLOCK_SIZE), Math.floor(nextYB / BLOCK_SIZE)];
-		const Q4 = [Math.floor(nextXR / BLOCK_SIZE), Math.floor(nextYB / BLOCK_SIZE)];
+		const Q1 = [~~(nextXL / BLOCK_SIZE), ~~(nextYT / BLOCK_SIZE)];
+		const Q2 = [~~(nextXR / BLOCK_SIZE), ~~(nextYT / BLOCK_SIZE)];
+		const Q3 = [~~(nextXL / BLOCK_SIZE), ~~(nextYB / BLOCK_SIZE)];
+		const Q4 = [~~(nextXR / BLOCK_SIZE), ~~(nextYB / BLOCK_SIZE)];
 
 		return (
 			MAZE.matrix[Q1[1]][Q1[0]] === 0 &&

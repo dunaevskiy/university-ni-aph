@@ -1,6 +1,6 @@
 import * as ECS from '@libs/pixi-ecs';
 import { CONTAINER, VIEWPORT } from '@packages/constants';
-import { MovingReverseComponent } from '@packages/components';
+import { Movement } from '@packages/components';
 import { Grass, RandomGardenElement } from '@packages/elements';
 
 import { Maze } from './Maze';
@@ -13,7 +13,7 @@ export class Map extends ECS.Container {
 		this.pivot.set(CONTAINER.big.width / 2, CONTAINER.big.height / 2);
 		this.position.set(VIEWPORT.width / 2, VIEWPORT.height / 2);
 
-		this.addComponent(new MovingReverseComponent());
+		this.addComponent(new Movement());
 
 		// Generate grass background
 		const grass = new Grass();

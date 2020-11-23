@@ -1,7 +1,7 @@
 import * as ECS from '@libs/pixi-ecs';
 import { ACTION } from '@packages/constants';
 
-export class MovingReverseComponent extends ECS.Component {
+export class Movement extends ECS.Component {
 	state = [0, 0];
 
 	private _setState(coords = [0, 0]) {
