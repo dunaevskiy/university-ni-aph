@@ -1,4 +1,26 @@
-{
+import segments from './mapSegments.json5';
+
+const generateFromSegments = (segments: number[][][][]): number[][] => {
+	let result = [];
+
+	for (let roomY = 0; roomY < segments.length; roomY++) {
+		let fullRow = [];
+
+		for (let roomRow = 0; roomRow < segments[roomY][0].length; roomRow++) {
+			let rowRow = [];
+			for (let roomX = 0; roomX < segments[0].length; roomX++) {
+				rowRow = [...rowRow, ...segments[roomY][roomX][roomRow]];
+			}
+			fullRow = [...fullRow, rowRow];
+		}
+
+		result = [...result, ...fullRow];
+	}
+
+	return result;
+};
+
+export const maps = {
 	alpha: {
 		/**
 		0 = floor
@@ -53,9 +75,9 @@
 				[25, 14],
 			],
 		},
-//		spawn: {
-//			person: [27, 14]
-//		}
+		//		spawn: {
+		//			person: [27, 14]
+		//		}
 	},
 	beta: {
 		/**
@@ -87,8 +109,33 @@
 				//
 			],
 		},
-//		spawn: {
-//			person: [3, 3]
-//		}
+		//		spawn: {
+		//			person: [3, 3]
+		//		}
 	},
-}
+	gamma: {
+		// prettier-ignore
+		map: generateFromSegments([
+			[segments.corner, segments.close.tb, segments.closeEmpty.tb, segments.close.tb, segments.corner],
+			[segments.close.lr, segments.circleRoom, segments.TRoom, segments.squareRoom, segments.close.lr],
+			[segments.close.lr, segments.squareRoom, segments.circleRoom, segments.circleRoom, segments.close.lr],
+			[segments.close.lr, segments.squareRoom, segments.LRoom, segments.circleRoom, segments.close.lr],
+			[segments.corner, segments.close.tb, segments.closeEmpty.tb, segments.close.tb, segments.corner],
+		]),
+		// teleports and end points
+		teleports: [
+			// { from: [25, 1], to: [36, 1] },
+			// { from: [45, 8], to: [20, 10] },
+			// { from: [19, 14], to: [10, 14] },
+			// { from: [19, 16], to: [20, 14] },
+		],
+		// initial samples
+		samples: {
+			max: 20,
+			initial: [
+				//
+				// [25, 14],
+			],
+		},
+	},
+};

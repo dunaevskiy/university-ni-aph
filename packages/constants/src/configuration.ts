@@ -1,11 +1,11 @@
-import maps from './maps.json5';
+import { maps } from './maps';
 
 export const VIEWPORT = {
 	width: window.innerWidth,
 	height: window.innerHeight,
 };
 
-export const SPEED_PLAYER = 0.3;
+export const SPEED_PLAYER = 1.3;
 export const SPEED_MONSTER = 0.35;
 
 export const P1 = 16;
@@ -13,7 +13,7 @@ export const P2 = 32;
 
 export const BLOCK_SIZE: number = 48;
 
-export const MAP = maps.alpha;
+export const MAP = maps.gamma;
 const matrix = MAP.map;
 export const MAZE = {
 	matrix,
