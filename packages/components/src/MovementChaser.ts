@@ -9,6 +9,7 @@ export class MovementChaser extends ECS.Component {
 	personPositionLast = { x: 1, y: 1 };
 	// Chaser target
 	target = { x: 1, y: 1 };
+	acceleration = 0;
 
 	onInit() {
 		// Listen to person movements
@@ -26,6 +27,9 @@ export class MovementChaser extends ECS.Component {
 	onUpdate(delta: number) {
 		// Wild hunt starts
 		if (!this.owner.hasFlag(WILD_HUNT)) return;
+
+		this.acceleration += 0.0001;
+		const SPEED_MONSTER_ACCELERATED = SPEED_MONSTER + this.acceleration;
 
 		const myX = ~~(this.owner.position.x / BLOCK_SIZE);
 		const myY = ~~(this.owner.position.y / BLOCK_SIZE);
@@ -59,9 +63,9 @@ export class MovementChaser extends ECS.Component {
 		const directionX = myX == this.target.x ? 0 : myX - this.target.x < 0 ? 1 : -1;
 		const directionY = myY == this.target.y ? 0 : myY - this.target.y < 0 ? 1 : -1;
 
-		const candidateXShift = SPEED_MONSTER * delta * directionX;
+		const candidateXShift = SPEED_MONSTER_ACCELERATED * delta * directionX;
 		const candidateX = this.owner.position.x + candidateXShift;
-		const candidateYShift = SPEED_MONSTER * delta * directionY;
+		const candidateYShift = SPEED_MONSTER_ACCELERATED * delta * directionY;
 		const candidateY = this.owner.position.y + candidateYShift;
 
 		this.owner.position.x += candidateX > 0 && candidateX < MAZE.width ? candidateXShift : 0;

@@ -6,7 +6,7 @@ export const VIEWPORT = {
 };
 
 export const SPEED_PLAYER = 0.3;
-export let SPEED_MONSTER = 0.35;
+export const SPEED_MONSTER = 0.3;
 
 export const P1 = 16;
 export const P2 = 32;
