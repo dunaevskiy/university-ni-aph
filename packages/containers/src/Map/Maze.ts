@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 import * as ECS from '@libs/pixi-ecs';
-import { CONTAINER, BLOCK_SIZE, MAZE, MAP } from '@packages/constants';
+import { CONTAINER, BLOCK_SIZE, MAZE, MAP, MAP_ELEMENTS } from '@packages/constants';
 import { Monster, Sample, Teleport } from '@packages/elements';
 import { loader, randomBetween } from '@packages/utils';
 import { SampleGenerator } from '@packages/components';
@@ -34,10 +34,10 @@ export class Maze extends ECS.Container {
 		for (let r = 0; r < MAZE.yBlocksNumber; r++) {
 			for (let c = 0; c < MAZE.xBlocksNumber; c++) {
 				switch (MAZE.matrix[r][c]) {
-					case 0x0:
+					case MAP_ELEMENTS.floor:
 						this._renderFloor(r, c);
 						break;
-					case 0x1:
+					case MAP_ELEMENTS.wall:
 						this._renderWall(r, c);
 						break;
 					default:
@@ -49,8 +49,8 @@ export class Maze extends ECS.Container {
 	_renderWall(row, column) {
 		let wall =
 			row == MAZE.matrix.length - 1 ||
-			MAZE.matrix[row + 1][column] == 0 ||
-			MAZE.matrix[row + 1][column] == 9
+			MAZE.matrix[row + 1][column] == MAP_ELEMENTS.floor ||
+			MAZE.matrix[row + 1][column] == MAP_ELEMENTS.grass
 				? loader.resources.wall02
 				: loader.resources.wall01;
 
@@ -109,7 +109,7 @@ export class Maze extends ECS.Container {
 		let yCandidate = y;
 
 		while (true) {
-			if (MAP.map[yCandidate][xCandidate] !== 0) {
+			if (MAP.map[yCandidate][xCandidate] !== MAP_ELEMENTS.floor) {
 				xCandidate = randomBetween(0, MAZE.xBlocksNumber - 1);
 				yCandidate = randomBetween(0, MAZE.yBlocksNumber - 1);
 				continue;

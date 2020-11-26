@@ -1,5 +1,13 @@
 import * as ECS from '@libs/pixi-ecs';
-import { ACTION, CONTAINER, BLOCK_SIZE, MAZE, SPEED_PLAYER, MAP } from '@packages/constants';
+import {
+	ACTION,
+	CONTAINER,
+	BLOCK_SIZE,
+	MAZE,
+	SPEED_PLAYER,
+	MAP,
+	MAP_ELEMENTS,
+} from '@packages/constants';
 
 export class MovementInitiator extends ECS.Component {
 	userInput: ECS.KeyInputComponent = null;
@@ -86,10 +94,10 @@ export class MovementInitiator extends ECS.Component {
 		const Q4 = [~~(nextXR / BLOCK_SIZE), ~~(nextYB / BLOCK_SIZE)];
 
 		return (
-			MAZE.matrix[Q1[1]][Q1[0]] === 0 &&
-			MAZE.matrix[Q2[1]][Q2[0]] === 0 &&
-			MAZE.matrix[Q3[1]][Q3[0]] === 0 &&
-			MAZE.matrix[Q4[1]][Q4[0]] === 0
+			MAZE.matrix[Q1[1]][Q1[0]] === MAP_ELEMENTS.floor &&
+			MAZE.matrix[Q2[1]][Q2[0]] === MAP_ELEMENTS.floor &&
+			MAZE.matrix[Q3[1]][Q3[0]] === MAP_ELEMENTS.floor &&
+			MAZE.matrix[Q4[1]][Q4[0]] === MAP_ELEMENTS.floor
 		);
 	};
 }

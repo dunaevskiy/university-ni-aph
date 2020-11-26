@@ -5,16 +5,18 @@ export const VIEWPORT = {
 	height: window.innerHeight,
 };
 
-export const SPEED_PLAYER = 1.3;
-export const SPEED_MONSTER = 0.35;
+export const SPEED_PLAYER = 0.3;
+export let SPEED_MONSTER = 0.35;
 
 export const P1 = 16;
 export const P2 = 32;
 
 export const BLOCK_SIZE: number = 48;
 
-export const MAP = maps.gamma;
-const matrix = MAP.map;
+export const MAP = maps.delta;
+const [indexes, ...map] = maps.delta.map;
+MAP.map = map;
+const matrix = map;
 export const MAZE = {
 	matrix,
 	xBlocksNumber: matrix[0].length,
@@ -32,4 +34,12 @@ export const CONTAINER = {
 		width: MAZE.width,
 		height: MAZE.height,
 	},
+};
+
+const [grass, floor, wall, tree] = indexes;
+export const MAP_ELEMENTS = {
+	grass,
+	floor,
+	wall,
+	tree,
 };

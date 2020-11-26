@@ -1,8 +1,8 @@
 import EasyStar from 'easystarjs';
 
-import { MAP } from '@packages/constants';
+import { MAP, MAP_ELEMENTS } from '@packages/constants';
 
 export const aStar = new EasyStar.js();
 aStar.setGrid(MAP.map);
-aStar.setAcceptableTiles([0]);
+aStar.setAcceptableTiles([MAP_ELEMENTS.floor]);
 aStar.enableDiagonals();
