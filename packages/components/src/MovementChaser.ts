@@ -29,7 +29,8 @@ export class MovementChaser extends ECS.Component {
 		if (!this.owner.hasFlag(WILD_HUNT)) return;
 
 		this.acceleration += 0.0001;
-		const SPEED_MONSTER_ACCELERATED = SPEED_MONSTER + this.acceleration;
+		const SPEED_MONSTER_ACCELERATED =
+			SPEED_MONSTER + this.acceleration < 0.4 ? SPEED_MONSTER + this.acceleration : 0.4;
 
 		const myX = ~~(this.owner.position.x / BLOCK_SIZE);
 		const myY = ~~(this.owner.position.y / BLOCK_SIZE);
