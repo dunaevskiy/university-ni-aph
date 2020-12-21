@@ -1,32 +1,42 @@
 import * as ECS from '@libs/pixi-ecs';
-import { ACTION, BLOCK_SIZE, MAZE, SPEED_MONSTER } from '@packages/constants';
+import { ACTION, BLOCK_SIZE, CONTAINER, MAZE, SPEED_MONSTER } from '@packages/constants';
 import { aStar } from '@packages/utils';
 
-const WILD_HUNT = 1;
+const WILD_HUNT = 'wild hunt';
 
 export class MovementChaser extends ECS.Component {
-	personPosition = { x: 1, y: 1 };
+	personPosition = {
+		x: CONTAINER.small.width / 2,
+		y: CONTAINER.small.height / 2,
+	};
 	personPositionLast = { x: 1, y: 1 };
 	// Chaser target
-	target = { x: 1, y: 1 };
+	target = {
+		x: CONTAINER.small.width / 2,
+		y: CONTAINER.small.height / 2,
+	};
 	acceleration = 0;
 
 	onInit() {
 		// Listen to person movements
 		this.subscribe(ACTION.MOVEMENT_OF_PERSON);
+		this.subscribe(ACTION.START_GAME);
 	}
 
 	onMessage(msg): any {
 		if (msg.action === ACTION.MOVEMENT_OF_PERSON) {
 			this.personPosition = msg.data;
+		}
+
+		if (msg.action === ACTION.START_GAME) {
 			// Start wild hunt with the first movement
-			this.owner.setFlag(WILD_HUNT);
+			this.owner.addTag(WILD_HUNT);
 		}
 	}
 
 	onUpdate(delta: number) {
 		// Wild hunt starts
-		if (!this.owner.hasFlag(WILD_HUNT)) return;
+		if (!this.owner.hasTag(WILD_HUNT)) return;
 
 		this.acceleration += 0.0001;
 		const SPEED_MONSTER_ACCELERATED =
@@ -59,6 +69,11 @@ export class MovementChaser extends ECS.Component {
 			});
 
 			aStar.calculate();
+		}
+
+		if (myX == finalX && myY == finalY) {
+			this.owner.removeTag(WILD_HUNT);
+			this.sendMessage(ACTION.END_GAME);
 		}
 
 		const directionX = myX == this.target.x ? 0 : myX - this.target.x < 0 ? 1 : -1;

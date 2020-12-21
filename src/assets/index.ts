@@ -1,19 +1,20 @@
-import floor01Img from '../assets/floor01.png';
-import floor02Img from '../assets/floor02.png';
-import floor03Img from '../assets/floor03.png';
-import wall01Img from '../assets/wall01.png';
-import wall02Img from '../assets/wall02.png';
-import sample01Img from '../assets/sample01.png';
-import sample02Img from '../assets/sample02.png';
-import sample03Img from '../assets/sample03.png';
-import doctor01Img from '../assets/doctor01.png';
-import grass01Img from '../assets/grass01.png';
-import bush01Img from '../assets/bush01.png';
-import teleport01Img from '../assets/teleport1.png';
-import teleport02Img from '../assets/teleport2.png';
-import monster01Img from '../assets/monster01.png';
-import flower01Img from '../assets/flower01.png';
-import tree01Img from '../assets/tree01.png';
+import floor01Img from './floor01.png';
+import floor02Img from './floor02.png';
+import floor03Img from './floor03.png';
+import wall01Img from './wall01.png';
+import wall02Img from './wall02.png';
+import sample01Img from './sample01.png';
+import sample02Img from './sample02.png';
+import sample03Img from './sample03.png';
+import doctor01Img from './doctor01.png';
+import grass01Img from './grass01.png';
+import bush01Img from './bush01.png';
+import teleport01Img from './teleport1.png';
+import teleport02Img from './teleport2.png';
+import monster01Img from './monster01.png';
+import flower01Img from './flower01.png';
+import tree01Img from './tree01.png';
+import logoImg from './logo.png';
 
 export const ASSETS = {
 	floor01: floor01Img,
@@ -32,6 +33,7 @@ export const ASSETS = {
 	monster01: monster01Img,
 	flower01: flower01Img,
 	tree01: tree01Img,
+	logo: logoImg,
 };
 
 export const RESOURCES = (() => {

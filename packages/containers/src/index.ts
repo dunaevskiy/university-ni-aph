@@ -1,2 +1,2 @@
 export * from './Map/Map';
-export * from './Stats/Stats';
+export * from './ControlInterface/ControlInterface';

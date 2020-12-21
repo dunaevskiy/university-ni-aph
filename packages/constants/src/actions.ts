@@ -8,4 +8,7 @@ export const ACTION = {
 	MOVEMENT_OF_PERSON: 'MOVEMENT_MC_NOTIFICATION',
 	// Notify about the collision
 	COLLISION_WITH_TELEPORT: 'TELEPORT_PERSON',
+
+	START_GAME: 'start game',
+	END_GAME: 'end game',
 };

@@ -2,13 +2,39 @@ import 'pixi-filters';
 
 import * as ECS from '@libs/pixi-ecs';
 import { VIEWPORT } from '@packages/constants';
-import { Map, Stats } from '@packages/containers';
+import { Map, ControlInterface } from '@packages/containers';
 import { loadResources } from '@packages/utils';
 import { Flashlight, Person } from '@packages/elements';
 
 import { RESOURCES } from '../assets';
 
 PIXI.settings.ROUND_PIXELS = true;
+
+window['WebFontConfig'] = {
+	google: {
+		families: ['Major Mono Display'],
+	},
+
+	active() {
+		(async () => {
+			await loadResources(RESOURCES);
+			new App();
+		})();
+	},
+};
+/* eslint-disable */
+// include the web-font loader script
+(function () {
+	const wf = document.createElement('script');
+	wf.src = `${
+		document.location.protocol === 'https:' ? 'https' : 'http'
+	}://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js`;
+	wf.type = 'text/javascript';
+	wf.async = true;
+	const s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(wf, s);
+})();
+/* eslint-enabled */
 
 class App {
 	engine: ECS.Engine;
@@ -43,13 +69,8 @@ class App {
 		const flashlight = new Flashlight();
 		this.engine.scene.stage.addChild(flashlight);
 
-		const stats = new Stats();
-		this.engine.scene.stage.addChild(stats);
-		stats.init();
+		const controlInterface = new ControlInterface();
+		this.engine.scene.stage.addChild(controlInterface);
+		controlInterface.init();
 	}
 }
-
-(async () => {
-	await loadResources(RESOURCES);
-	new App();
-})();
