@@ -25,12 +25,15 @@ export class MovementInitiator extends ECS.Component {
 		// Listen collisions with teleports
 		this.subscribe(ACTION.COLLISION_WITH_TELEPORT);
 		this.subscribe(ACTION.START_GAME);
+		this.subscribe(ACTION.END_GAME);
 	}
 
 	onUpdate(delta: number, absolute: number) {
 		let x = 0;
 		let y = 0;
 		const distance = delta * SPEED_PLAYER;
+
+		if (!this.owner.hasTag('IN GAME')) return;
 
 		if (this.userInput.isKeyPressed(ECS.Keys.KEY_D)) {
 			if (this._canStepAt(distance, 0)) x += distance;
@@ -69,6 +72,11 @@ export class MovementInitiator extends ECS.Component {
 			const shiftY = CONTAINER.small.height / 2 - this.position.y;
 
 			this._notifyAboutMovement(shiftX, shiftY);
+			this.owner.addTag('IN GAME');
+		}
+
+		if (msg.action === ACTION.END_GAME) {
+			this.owner.removeTag('IN GAME');
 		}
 	}
 
