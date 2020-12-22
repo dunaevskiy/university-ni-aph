@@ -91,7 +91,7 @@ export class ControlInterface extends ECS.Container {
 		this.score.text = this.state;
 	}
 
-	resetScore(number) {
+	resetScore() {
 		this.state = 0;
 		this.score.text = this.state;
 	}

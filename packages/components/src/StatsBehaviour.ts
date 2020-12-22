@@ -14,7 +14,7 @@ export class StatsBehaviour extends ECS.Component {
 		}
 		if (msg.action === ACTION.START_GAME) {
 			// @ts-ignore
-			this.owner.resetScore(1);
+			this.owner.resetScore();
 		}
 	}
 }

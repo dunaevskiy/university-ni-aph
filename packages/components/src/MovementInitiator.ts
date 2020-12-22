@@ -24,6 +24,7 @@ export class MovementInitiator extends ECS.Component {
 
 		// Listen collisions with teleports
 		this.subscribe(ACTION.COLLISION_WITH_TELEPORT);
+		this.subscribe(ACTION.START_GAME);
 	}
 
 	onUpdate(delta: number, absolute: number) {
@@ -59,6 +60,13 @@ export class MovementInitiator extends ECS.Component {
 
 			const shiftX = destination[0] - this.position.x;
 			const shiftY = destination[1] - this.position.y;
+
+			this._notifyAboutMovement(shiftX, shiftY);
+		}
+
+		if (msg.action === ACTION.START_GAME) {
+			const shiftX = CONTAINER.small.width / 2 - this.position.x;
+			const shiftY = CONTAINER.small.height / 2 - this.position.y;
 
 			this._notifyAboutMovement(shiftX, shiftY);
 		}

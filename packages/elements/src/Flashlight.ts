@@ -19,12 +19,7 @@ export class Flashlight extends ECS.Graphics {
 	}
 
 	turnOn() {
-		this.clear();
-
-		// Dark screen
-		this.beginFill(0x111111);
-		this.drawRect(0, 0, VIEWPORT.width, VIEWPORT.height);
-		this.endFill();
+		this.turnOff();
 
 		// Light circle
 		this.beginFill(0xcccccc);

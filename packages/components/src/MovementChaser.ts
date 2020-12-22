@@ -31,6 +31,8 @@ export class MovementChaser extends ECS.Component {
 		if (msg.action === ACTION.START_GAME) {
 			// Start wild hunt with the first movement
 			this.owner.addTag(WILD_HUNT);
+			this.owner.position.set(CONTAINER.small.width / 2, CONTAINER.small.height / 2 - 200);
+			this.acceleration = -0.02;
 		}
 	}
 
