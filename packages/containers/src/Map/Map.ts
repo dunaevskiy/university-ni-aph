@@ -1,7 +1,10 @@
+import * as PIXI from 'pixi.js';
+
 import * as ECS from '@libs/pixi-ecs';
 import { CONTAINER, VIEWPORT } from '@packages/constants';
-import { Movement } from '@packages/components';
-import { Grass, RandomGardenElement } from '@packages/elements';
+import { MovementListener } from '@packages/components';
+import { RandomPlant } from '@packages/elements';
+import { loader } from '@packages/utils';
 
 import { Maze } from './Maze';
 
@@ -13,13 +16,35 @@ export class Map extends ECS.Container {
 		this.pivot.set(CONTAINER.big.width / 2, CONTAINER.big.height / 2);
 		this.position.set(VIEWPORT.width / 2, VIEWPORT.height / 2);
 
-		this.addComponent(new Movement());
+		// Init graphics
+		this._initGrass();
+		this._initForest();
 
-		// Generate grass background
-		const grass = new Grass();
+		// Add reverse player movement
+		this.addComponent(new MovementListener());
+	}
+
+	init() {
+		this.addChild(this.maze);
+		this.maze.init();
+	}
+
+	/**
+	 * Generate grass everywhere
+	 */
+	_initGrass() {
+		const grass = new PIXI.TilingSprite(
+			loader.resources.grass01.texture,
+			CONTAINER.big.width,
+			CONTAINER.big.height,
+		);
 		this.addChild(grass);
+	}
 
-		// Generate random garden elements (trees, flowers)
+	/**
+	 * Generate random garden elements (trees, flowers)
+	 */
+	_initForest() {
 		for (let r = 0; r < CONTAINER.big.height; r += 50) {
 			for (let c = 0; c < CONTAINER.big.width; c += 50) {
 				// Skip if it is the Maze territory
@@ -31,17 +56,12 @@ export class Map extends ECS.Container {
 				)
 					continue;
 
-				const decision = Math.random() > 0.0;
+				const decision = Math.random() > 0.3;
 				if (decision) {
-					const gardenElement = new RandomGardenElement(c, r);
+					const gardenElement = new RandomPlant(c, r);
 					this.addChild(gardenElement);
 				}
 			}
 		}
-	}
-
-	init() {
-		this.addChild(this.maze);
-		this.maze.init();
 	}
 }

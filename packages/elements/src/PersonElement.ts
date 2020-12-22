@@ -1,9 +1,9 @@
 import { MovementInitiator } from '@packages/components';
 import { loader } from '@packages/utils';
 
-import { OneBlockElement } from './OneBlockElement';
+import { Element } from './Element';
 
-export class Person extends OneBlockElement {
+export class PersonElement extends Element {
 	constructor() {
 		super('doctor', loader.resources.doctor01.texture);
 	}

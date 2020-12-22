@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import { loader, randomBetween } from '@packages/utils';
 
-export class RandomGardenElement extends PIXI.Sprite {
+export class RandomPlant extends PIXI.Sprite {
 	constructor(x, y) {
 		const rnd = randomBetween(0, 30);
 

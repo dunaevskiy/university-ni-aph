@@ -4,7 +4,7 @@ import { BLOCK_SIZE } from '@packages/constants';
 /**
  * Represents a one block sprite
  */
-export class OneBlockElement extends ECS.Sprite {
+export class Element extends ECS.Sprite {
 	constructor(name, texture, size = BLOCK_SIZE) {
 		super(name, texture);
 

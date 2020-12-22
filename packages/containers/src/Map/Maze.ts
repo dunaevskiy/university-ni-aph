@@ -2,21 +2,22 @@ import * as PIXI from 'pixi.js';
 
 import * as ECS from '@libs/pixi-ecs';
 import { CONTAINER, BLOCK_SIZE, MAZE, MAP, MAP_ELEMENTS } from '@packages/constants';
-import { Monster, Sample, Teleport } from '@packages/elements';
+import { MonsterElement, SampleElement, TeleportElement } from '@packages/elements';
 import { loader, randomBetween } from '@packages/utils';
-import { SampleGenerator } from '@packages/components';
+import { MazeBehaviour } from '@packages/components';
 
 export class Maze extends ECS.Container {
-	monster: Monster = new Monster();
+	monster: MonsterElement = new MonsterElement();
 
 	constructor() {
 		super();
 		this.pivot.set(CONTAINER.small.width / 2, CONTAINER.small.height / 2);
 		this.position.set(CONTAINER.big.width / 2, CONTAINER.big.height / 2);
 
-		this.addComponent(new SampleGenerator());
+		//
+		this._initBuilding();
 
-		this._renderBuilding();
+		this.addComponent(new MazeBehaviour());
 	}
 
 	init() {
@@ -30,7 +31,10 @@ export class Maze extends ECS.Container {
 		this._addSampleAt();
 	}
 
-	_renderBuilding() {
+	/**
+	 * Generates the maze map
+	 */
+	_initBuilding() {
 		for (let r = 0; r < MAZE.yBlocksNumber; r++) {
 			for (let c = 0; c < MAZE.xBlocksNumber; c++) {
 				switch (MAZE.matrix[r][c]) {
@@ -77,7 +81,7 @@ export class Maze extends ECS.Container {
 			const { from, to } = teleport;
 			const [nextX, nextY] = to;
 
-			const elem = new Teleport([nextX * BLOCK_SIZE, nextY * BLOCK_SIZE]);
+			const elem = new TeleportElement([nextX * BLOCK_SIZE, nextY * BLOCK_SIZE]);
 			elem.position.set(from[0] * BLOCK_SIZE, from[1] * BLOCK_SIZE);
 			this.addChild(elem);
 		}
@@ -115,7 +119,7 @@ export class Maze extends ECS.Container {
 				continue;
 			}
 
-			const elem = new Sample();
+			const elem = new SampleElement();
 			elem.position.set(xCandidate * BLOCK_SIZE + 18, yCandidate * BLOCK_SIZE + 18);
 			this.addChild(elem);
 			break;

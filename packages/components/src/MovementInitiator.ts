@@ -5,7 +5,6 @@ import {
 	BLOCK_SIZE,
 	MAZE,
 	SPEED_PLAYER,
-	MAP,
 	MAP_ELEMENTS,
 } from '@packages/constants';
 

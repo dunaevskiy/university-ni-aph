@@ -2,9 +2,9 @@ import 'pixi-filters';
 
 import * as ECS from '@libs/pixi-ecs';
 import { VIEWPORT } from '@packages/constants';
-import { Map, ControlInterface } from '@packages/containers';
+import { Map, ControlPanel } from '@packages/containers';
 import { loadResources } from '@packages/utils';
-import { Flashlight, Person } from '@packages/elements';
+import { Flashlight, PersonElement } from '@packages/elements';
 
 import { RESOURCES } from '../assets';
 
@@ -48,7 +48,7 @@ class App {
 			height: VIEWPORT.height,
 			antialias: false,
 			resolution: 1,
-			// resolution: 0.5,
+			// resolution: 0.25,
 		});
 
 		this.engine.scene.addGlobalComponent(new ECS.KeyInputComponent());
@@ -61,7 +61,7 @@ class App {
 		this.engine.scene.stage.addChild(map);
 		map.init();
 
-		const person = new Person();
+		const person = new PersonElement();
 		this.engine.scene.stage.addChild(person);
 		person.position.set(VIEWPORT.width / 2, VIEWPORT.height / 2);
 		person.init();
@@ -69,7 +69,7 @@ class App {
 		const flashlight = new Flashlight();
 		this.engine.scene.stage.addChild(flashlight);
 
-		const controlInterface = new ControlInterface();
+		const controlInterface = new ControlPanel();
 		this.engine.scene.stage.addChild(controlInterface);
 		controlInterface.init();
 	}

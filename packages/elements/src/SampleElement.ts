@@ -1,9 +1,9 @@
 import { loader, randomBetween } from '@packages/utils';
 import { CollisionCollectable } from '@packages/components';
 
-import { OneBlockElement } from './OneBlockElement';
+import { Element } from './Element';
 
-export class Sample extends OneBlockElement {
+export class SampleElement extends Element {
 	constructor() {
 		const number = randomBetween(1, 3);
 

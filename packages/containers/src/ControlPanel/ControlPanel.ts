@@ -21,7 +21,7 @@ const style = {
 	lineJoin: 'round',
 };
 
-export class ControlInterface extends ECS.Container {
+export class ControlPanel extends ECS.Container {
 	state = 0;
 	score = null;
 

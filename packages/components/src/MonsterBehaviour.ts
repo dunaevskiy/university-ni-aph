@@ -4,7 +4,7 @@ import { aStar } from '@packages/utils';
 
 const WILD_HUNT = 'wild hunt';
 
-export class MovementChaser extends ECS.Component {
+export class MonsterBehaviour extends ECS.Component {
 	personPosition = {
 		x: CONTAINER.small.width / 2,
 		y: CONTAINER.small.height / 2,
