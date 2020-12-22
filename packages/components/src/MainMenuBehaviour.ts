@@ -17,10 +17,14 @@ export class MainMenuBehaviour extends ECS.Component {
 		if (msg.action === ACTION.START_GAME) {
 			// @ts-ignore
 			this.owner.removeChild(this.owner.menuStartGame);
+			// @ts-ignore
+			this.owner.removeChild(this.owner.controlInfo);
 		}
 		if (msg.action === ACTION.END_GAME) {
 			// @ts-ignore
 			this.owner.addChild(this.owner.menuStartGame);
+			// @ts-ignore
+			this.owner.addChild(this.owner.controlInfo);
 		}
 	}
 }

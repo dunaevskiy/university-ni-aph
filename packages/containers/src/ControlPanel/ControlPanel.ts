@@ -30,6 +30,7 @@ export class ControlPanel extends ECS.Container {
 	sampleIcon = null;
 
 	menuStartGame = null;
+	controlInfo = null;
 
 	init() {
 		this._initLogo();
@@ -76,12 +77,21 @@ export class ControlPanel extends ECS.Container {
 		this.menuStartGame = new PIXI.Text('start game', {
 			fontFamily: 'Major Mono Display',
 			fontSize: 30,
-			fill: 'white',
+			fill: 'red',
 			align: 'center',
 		});
 		this.addChild(this.menuStartGame);
 		this.menuStartGame.position.set(VIEWPORT.width / 2 - this.menuStartGame.width / 2, 300);
 		this.menuStartGame.interactive = true;
+
+		this.controlInfo = new PIXI.Text('use [w][a][s][d] to run and collect items', {
+			fontFamily: 'Major Mono Display',
+			fontSize: 16,
+			fill: 'white',
+			align: 'center',
+		});
+		this.addChild(this.controlInfo);
+		this.controlInfo.position.set(VIEWPORT.width / 2 - this.controlInfo.width / 2, 400);
 
 		this.addComponent(new MainMenuBehaviour());
 	}
