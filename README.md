@@ -21,7 +21,7 @@ yarn bundle  # production build
 
 Main hierarchy:
 - Lifecycle is taken from ECS library (see `./libs/pixi-ecs`)
-- Green is a Stage
+- Green is a Scene
 - Blue are Entities
 - Yellow are Components
 

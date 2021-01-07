@@ -3,11 +3,11 @@ import { ACTION, BLOCK_SIZE } from '@packages/constants';
 
 export abstract class Collision extends ECS.Component {
 	onInit() {
-		this.subscribe(ACTION.MOVEMENT_OF_PERSON);
+		this.subscribe(ACTION.UPDATE_PERSON_COORDINATE);
 	}
 
 	onMessage(msg): any {
-		if (msg.action === ACTION.MOVEMENT_OF_PERSON) {
+		if (msg.action === ACTION.UPDATE_PERSON_COORDINATE) {
 			const ownerX = this.owner.position.x;
 			const ownerY = this.owner.position.y;
 			const personX = msg.data.x;

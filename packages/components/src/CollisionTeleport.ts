@@ -12,6 +12,6 @@ export class CollisionTeleport extends Collision {
 	}
 
 	_collisionAction() {
-		this.sendMessage(ACTION.COLLISION_WITH_TELEPORT, { destination: this.destination });
+		this.sendMessage(ACTION.TELEPORT_PERSON, { destination: this.destination });
 	}
 }

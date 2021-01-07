@@ -18,13 +18,21 @@ export class MainMenuBehaviour extends ECS.Component {
 			// @ts-ignore
 			this.owner.removeChild(this.owner.menuStartGame);
 			// @ts-ignore
-			this.owner.removeChild(this.owner.controlInfo);
+			this.owner.removeChild(this.owner.controlInfo1);
+			// @ts-ignore
+			this.owner.removeChild(this.owner.controlInfo2);
+			// @ts-ignore
+			this.owner.removeChild(this.owner.controlInfo3);
 		}
 		if (msg.action === ACTION.END_GAME) {
 			// @ts-ignore
 			this.owner.addChild(this.owner.menuStartGame);
 			// @ts-ignore
-			this.owner.addChild(this.owner.controlInfo);
+			this.owner.addChild(this.owner.controlInfo1);
+			// @ts-ignore
+			this.owner.addChild(this.owner.controlInfo2);
+			// @ts-ignore
+			this.owner.addChild(this.owner.controlInfo3);
 		}
 	}
 }

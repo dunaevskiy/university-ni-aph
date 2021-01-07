@@ -1,14 +1,13 @@
 export const ACTION = {
-	MOVEMENT: 'MOVEMENT',
-	MOVEMENT_DIRECT: 'MOVEMENT_DIRECT',
-	MOVEMENT_REVERSE: 'MOVEMENT_REVERSE',
+	START_GAME: 'START_GAME',
+	END_GAME: 'END_GAME',
+
 	ADD_SCORE: 'ADD_SCORE',
 
+	// Send shift of x and y according to players movement
+	UPDATE_ACCORDING_MOVEMENT: 'UPDATE_ACCORDING_MOVEMENT',
 	// Send current person position in {x, y}
-	MOVEMENT_OF_PERSON: 'MOVEMENT_MC_NOTIFICATION',
-	// Notify about the collision
-	COLLISION_WITH_TELEPORT: 'TELEPORT_PERSON',
-
-	START_GAME: 'start game',
-	END_GAME: 'end game',
+	UPDATE_PERSON_COORDINATE: 'UPDATE_PERSON_COORDINATE',
+	// Teleports person at coords
+	TELEPORT_PERSON: 'TELEPORT_PERSON',
 };

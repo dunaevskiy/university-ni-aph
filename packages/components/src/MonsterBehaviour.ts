@@ -19,13 +19,13 @@ export class MonsterBehaviour extends ECS.Component {
 
 	onInit() {
 		// Listen to person movements
-		this.subscribe(ACTION.MOVEMENT_OF_PERSON);
+		this.subscribe(ACTION.UPDATE_PERSON_COORDINATE);
 		this.subscribe(ACTION.START_GAME);
-		this.subscribe(ACTION.COLLISION_WITH_TELEPORT);
+		this.subscribe(ACTION.TELEPORT_PERSON);
 	}
 
 	onMessage(msg): any {
-		if (msg.action === ACTION.MOVEMENT_OF_PERSON) {
+		if (msg.action === ACTION.UPDATE_PERSON_COORDINATE) {
 			this.personPosition = msg.data;
 		}
 
@@ -36,7 +36,7 @@ export class MonsterBehaviour extends ECS.Component {
 			this.acceleration = -0.02;
 		}
 
-		if (msg.action === ACTION.COLLISION_WITH_TELEPORT) {
+		if (msg.action === ACTION.TELEPORT_PERSON) {
 			// Start wild hunt with the first movement
 			this.owner.removeTag(WILD_HUNT);
 			setTimeout(() => {

@@ -14,19 +14,11 @@ export const maps = {
 			[1,0,0,0,0,0,0,0,0,0,0,0,0,1],
 			[1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 		],
-		// teleports and end points
-		teleports: [
-			//			{ from: [25, 1], to: [36, 1] },
-			//			{ from: [19, 14], to: [10, 14] },
-		],
-		// initial samples
+		teleports: [],
 		samples: {
 			max: 20,
 			initial: [],
 		},
-		//		spawn: {
-		//			person: [3, 3]
-		//		}
 	},
 	delta: {
 		map: map,

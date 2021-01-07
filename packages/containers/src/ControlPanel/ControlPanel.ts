@@ -30,7 +30,9 @@ export class ControlPanel extends ECS.Container {
 	sampleIcon = null;
 
 	menuStartGame = null;
-	controlInfo = null;
+	controlInfo1 = null;
+	controlInfo2 = null;
+	controlInfo3 = null;
 
 	init() {
 		this._initLogo();
@@ -84,14 +86,24 @@ export class ControlPanel extends ECS.Container {
 		this.menuStartGame.position.set(VIEWPORT.width / 2 - this.menuStartGame.width / 2, 300);
 		this.menuStartGame.interactive = true;
 
-		this.controlInfo = new PIXI.Text('use [w][a][s][d] to run and collect items', {
+		const textStyle = {
 			fontFamily: 'Major Mono Display',
 			fontSize: 16,
 			fill: 'white',
 			align: 'center',
-		});
-		this.addChild(this.controlInfo);
-		this.controlInfo.position.set(VIEWPORT.width / 2 - this.controlInfo.width / 2, 400);
+		};
+
+		this.controlInfo1 = new PIXI.Text('use [w][a][s][d] to run and collect items', textStyle);
+		this.addChild(this.controlInfo1);
+		this.controlInfo1.position.set(VIEWPORT.width / 2 - this.controlInfo1.width / 2, 400);
+
+		this.controlInfo2 = new PIXI.Text('the monster is faster than you, use teleports', textStyle);
+		this.addChild(this.controlInfo2);
+		this.controlInfo2.position.set(VIEWPORT.width / 2 - this.controlInfo2.width / 2, 430);
+
+		this.controlInfo3 = new PIXI.Text('collect as many samples as you can', textStyle);
+		this.addChild(this.controlInfo3);
+		this.controlInfo3.position.set(VIEWPORT.width / 2 - this.controlInfo3.width / 2, 460);
 
 		this.addComponent(new MainMenuBehaviour());
 	}

@@ -9,11 +9,11 @@ export class MovementListener extends ECS.Component {
 	}
 
 	onInit() {
-		this.subscribe(ACTION.MOVEMENT);
+		this.subscribe(ACTION.UPDATE_ACCORDING_MOVEMENT);
 	}
 
 	onMessage(msg: ECS.Message): any {
-		if (msg.action === ACTION.MOVEMENT) {
+		if (msg.action === ACTION.UPDATE_ACCORDING_MOVEMENT) {
 			const [x, y] = this.state;
 			const [xS, yS] = msg.data;
 			this._setState([x - xS, y - yS]);

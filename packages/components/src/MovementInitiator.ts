@@ -22,7 +22,7 @@ export class MovementInitiator extends ECS.Component {
 		);
 
 		// Listen collisions with teleports
-		this.subscribe(ACTION.COLLISION_WITH_TELEPORT);
+		this.subscribe(ACTION.TELEPORT_PERSON);
 		this.subscribe(ACTION.START_GAME);
 		this.subscribe(ACTION.END_GAME);
 	}
@@ -57,7 +57,7 @@ export class MovementInitiator extends ECS.Component {
 	}
 
 	onMessage(msg: ECS.Message): any {
-		if (msg.action === ACTION.COLLISION_WITH_TELEPORT) {
+		if (msg.action === ACTION.TELEPORT_PERSON) {
 			const { destination } = msg.data;
 
 			const shiftX = destination[0] - this.position.x;
@@ -80,10 +80,10 @@ export class MovementInitiator extends ECS.Component {
 	}
 
 	_notifyAboutMovement(shiftX, shiftY) {
-		this.sendMessage(ACTION.MOVEMENT, [shiftX, shiftY]);
+		this.sendMessage(ACTION.UPDATE_ACCORDING_MOVEMENT, [shiftX, shiftY]);
 		this.position.x += shiftX;
 		this.position.y += shiftY;
-		this.sendMessage(ACTION.MOVEMENT_OF_PERSON, {
+		this.sendMessage(ACTION.UPDATE_PERSON_COORDINATE, {
 			x: this.position.x,
 			y: this.position.y,
 		});
